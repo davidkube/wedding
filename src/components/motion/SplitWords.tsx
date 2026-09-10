@@ -32,14 +32,20 @@ export function SplitLines({
       {lines.map((line, li) => (
         <span
           key={li}
-          className={cn("block overflow-hidden pb-[0.08em] -mb-[0.08em]", align && alignClass[align[li] ?? "left"], lineClassName)}
+          className={cn(
+            "relative block overflow-hidden pb-[0.14em]",
+            li < lines.length - 1 && "-mb-[0.14em]",
+            align && alignClass[align[li] ?? "left"],
+            lineClassName,
+          )}
+          style={{ zIndex: lines.length - li }}
         >
           {line.split(" ").map((word, wi) => {
             const idx = i++;
             return (
               <motion.span
                 key={wi}
-                className="inline-block will-change-transform"
+                className="inline-block pb-[0.16em] will-change-transform"
                 initial={{ y: "110%", rotate: 3, opacity: 0 }}
                 animate={{ y: 0, rotate: 0, opacity: 1 }}
                 transition={{ duration: 1.1, ease: EASE, delay: delay + idx * 0.09 }}

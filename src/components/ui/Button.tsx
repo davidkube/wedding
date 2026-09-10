@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 const variants = {
   primary: "bg-coral text-oat hover:bg-[#d05f45]",
   secondary: "border-[1.5px] border-olive text-olive hover:bg-olive hover:text-oat",
+  light: "border-[1.5px] border-oat/80 text-oat hover:bg-oat hover:text-wine",
   ink: "border-[1.5px] border-ink text-ink hover:bg-ink hover:text-oat rounded-none",
   text: "text-coral px-0 h-auto hover:underline underline-offset-4",
 } as const;

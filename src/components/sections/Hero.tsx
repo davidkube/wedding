@@ -1,14 +1,13 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
-import { useRef, type MouseEvent } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import { hero } from "@/content";
 import { downloadIcs } from "@/lib/calendar";
 import { Button, LinkButton } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Wave } from "@/components/ui/Wave";
 import { SplitLines } from "@/components/motion/SplitWords";
-import { CoralBloom, LeafSprig, MustardSpray, PaleFrond } from "@/components/Illustrations";
 import { Monogram } from "@/components/Monogram";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -28,26 +27,6 @@ export function Hero() {
   const blockY = useTransform(blockP, [0, 1], [0, -80]);
   const blockOpacity = useTransform(blockP, [0, 0.9], [1, 0.35]);
 
-  // Botanicals: each layer scrolls at its own speed, and leans with the pointer.
-  const mx = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
-  const my = useSpring(useMotionValue(0), { stiffness: 60, damping: 20 });
-  const leafY = useTransform(blockP, [0, 1], [0, -160]);
-  const bloomY = useTransform(blockP, [0, 1], [0, -60]);
-  const sprayY = useTransform(blockP, [0, 1], [0, -220]);
-  const frondY = useTransform(blockP, [0, 1], [0, -110]);
-  const leafX = useTransform(mx, (v) => v * -18);
-  const bloomX = useTransform(mx, (v) => v * 26);
-  const sprayX = useTransform(mx, (v) => v * 12);
-  const frondX = useTransform(mx, (v) => v * -30);
-  const bloomRotate = useTransform(mx, (v) => v * 6);
-  const leafTilt = useTransform(my, (v) => v * -8);
-
-  function onMove(e: MouseEvent<HTMLElement>) {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set(((e.clientX - r.left) / r.width - 0.5) * 2);
-    my.set(((e.clientY - r.top) / r.height - 0.5) * 2);
-  }
-
   // Photo grows out of the band and parallaxes as you scroll through it; the
   // ticket card travels more slowly so it seems to float above the print.
   const { scrollYProgress: bandP } = useScroll({ target: bandRef, offset: ["start end", "end start"] });
@@ -62,53 +41,16 @@ export function Hero() {
 
   return (
     <div id="top">
-      <section
-        onMouseMove={reduce ? undefined : onMove}
-        className="relative overflow-hidden bg-blush px-[clamp(16px,4vw,64px)] pb-[clamp(20px,3vw,40px)] pt-[clamp(104px,15vw,180px)]"
-      >
-        {/* botanicals */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute -left-[5vw] top-[9vw] w-[clamp(84px,20vw,280px)] md:-left-[3vw] md:top-[3vw]"
-          style={reduce ? undefined : { y: leafY, x: leafX, rotate: leafTilt }}
-          {...fade(0.5)}
-        >
-          <LeafSprig className="w-full" />
-        </motion.div>
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute -right-[3vw] top-[14vw] w-[clamp(90px,15vw,220px)] md:top-[6vw]"
-          style={reduce ? undefined : { y: bloomY, x: bloomX, rotate: bloomRotate }}
-          {...fade(0.7)}
-        >
-          <CoralBloom className="w-full" />
-        </motion.div>
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute right-[2vw] bottom-[-3vw] hidden w-[clamp(80px,11vw,170px)] sm:block"
-          style={reduce ? undefined : { y: sprayY, x: sprayX }}
-          {...fade(0.9)}
-        >
-          <MustardSpray className="w-full" />
-        </motion.div>
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute -left-[2vw] bottom-[6vw] w-[clamp(140px,24vw,340px)]"
-          style={reduce ? undefined : { y: frondY, x: frondX }}
-          {...fade(1.1)}
-        >
-          <PaleFrond className="w-full" />
-        </motion.div>
-
+      <section className="relative overflow-hidden bg-wine px-[clamp(16px,4vw,64px)] pb-[clamp(20px,3vw,40px)] pt-[clamp(104px,15vw,180px)] text-oat">
         <motion.div ref={blockRef} className="relative mx-auto max-w-[1280px]" style={reduce ? undefined : { y: blockY, opacity: blockOpacity }}>
-          <motion.div className="eyebrow text-center text-coral" {...fade(0.1)}>
+          <motion.div className="eyebrow text-center text-coral-light" {...fade(0.1)}>
             {hero.eyebrow}
           </motion.div>
           <SplitLines
             lines={hero.nameLines}
             align={["left", "right"]}
             delay={0.25}
-            className="display -mx-[0.06em] mt-[clamp(14px,2vw,28px)] text-olive text-[clamp(78px,19.5vw,272px)] leading-[0.88]"
+            className="display -mx-[0.06em] mt-[clamp(14px,2vw,28px)] text-blush text-[clamp(78px,19.5vw,272px)] leading-[0.95]"
           />
           <div className="mt-[clamp(20px,3vw,44px)] flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
             <motion.div className="font-mono text-[clamp(12px,1.1vw,15px)] tracking-[0.04em]" {...fade(0.8)}>
@@ -116,7 +58,7 @@ export function Hero() {
             </motion.div>
             <motion.div className="flex flex-wrap gap-3" {...fade(0.95)}>
               <LinkButton href={hero.primaryCta.href}>{hero.primaryCta.label}</LinkButton>
-              <Button variant="secondary" onClick={downloadIcs}>
+              <Button variant="light" onClick={downloadIcs}>
                 {hero.secondaryCta.label}
               </Button>
             </motion.div>
