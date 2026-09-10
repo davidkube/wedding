@@ -16,14 +16,18 @@ export const couple = {
 
 export const event = {
   /** ISO date with the venue's timezone offset (South Africa is UTC+2). */
-  start: "2027-01-04T15:00:00+02:00",
-  end: "2027-01-05T01:00:00+02:00",
+  start: "2027-01-03T15:00:00+02:00",
+  end: "2027-01-04T01:00:00+02:00",
   timezone: "Africa/Johannesburg",
   /** Human forms, written once so every section agrees. */
-  dateLong: "4 January 2027",
-  dateShort: "4.1.2027",
-  dateSpelled: "Monday, the fourth of January",
-  weekdayLine: "until the fourth of January, with love",
+  dateLong: "3 January 2027",
+  dateShort: "3.1.2027",
+  dateSpelled: "Sunday, the third of January",
+  weekdayLine: "until the third of January, with love",
+  /** Poster numerals for the save-the-date band. */
+  dateNumerals: "03.01.27",
+  weekday: "Sunday",
+  timeSpelled: "three o'clock",
   rsvpBy: "1 November 2026",
   rsvpByShort: "1 Nov",
 } as const;

@@ -10,6 +10,7 @@ import { Chip } from "@/components/ui/Chip";
 import { Input, Label, Textarea } from "@/components/ui/Field";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { cn } from "@/lib/cn";
+import { Ghost } from "@/components/motion/Ghost";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -62,7 +63,9 @@ export function Rsvp() {
   }
 
   return (
-    <Section id="rsvp" ground="blush">
+    <Section id="rsvp" ground="blush" className="relative overflow-hidden">
+      <Ghost letter="&" className="-right-[0.05em] bottom-[-0.1em]" distance={70} />
+      <div className="relative">
       <Stagger className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2.5">
         {rsvp.summary.map((s) => (
           <StaggerItem key={s.label} className="border border-ink/15 bg-oat px-3.5 py-3">
@@ -180,6 +183,7 @@ export function Rsvp() {
             )}
           </AnimatePresence>
         </Reveal>
+      </div>
       </div>
     </Section>
   );

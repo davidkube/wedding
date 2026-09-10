@@ -2,6 +2,7 @@ export * from "./site";
 export * from "./theme";
 export * from "./nav";
 export * from "./hero";
+export * from "./saveTheDate";
 export * from "./day";
 export * from "./rsvp";
 export * from "./travel";

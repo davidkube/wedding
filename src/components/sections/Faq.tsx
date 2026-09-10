@@ -9,6 +9,7 @@ import { LinkButton } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { cn } from "@/lib/cn";
+import { ImageReveal } from "@/components/motion/ImageReveal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -77,9 +78,11 @@ export function Faq() {
         <Stagger className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
           {dressCode.cards.map((c) => (
             <StaggerItem key={c.title}>
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <Photo image={c.image} placeholder={c.placeholder} tone={c.tone} sizes="(max-width: 768px) 100vw, 360px" />
-              </div>
+              <ImageReveal>
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <Photo image={c.image} placeholder={c.placeholder} tone={c.tone} sizes="(max-width: 768px) 100vw, 360px" />
+                </div>
+              </ImageReveal>
               <div className="mt-2.5 font-serif text-[22px]">{c.title}</div>
             </StaggerItem>
           ))}

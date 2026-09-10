@@ -19,12 +19,13 @@ Everything a guest reads lives in `src/content/`. Components only lay it out.
 | --- | --- |
 | `site.ts` | Names, date and times, venue and map link, email and phone, RSVP endpoint, page title and Open Graph text |
 | `nav.ts` | Sticky nav links |
-| `hero.ts` | Eyebrow, name lines, buttons, hero photo (or a muted video loop) |
+| `hero.ts` | Eyebrow, name lines, buttons, the ticket card copy, hero photo (or a muted video loop) |
+| `saveTheDate.ts` | The olive-black poster band (numerals, countdown labels) and the marquee line |
 | `day.ts` | Day-plan timeline: times, titles, places, photos |
 | `rsvp.ts` | Summary cards, headline, form labels, options, success and error copy |
 | `travel.ts` | Three travel columns and the staggered stay cards |
-| `story.ts` | Start and end years, chapters, the two story photos |
-| `gallery.ts` | Stills wall captions and images |
+| `story.ts` | Start and end years, chapters on the winding road, the two polaroid photos and captions |
+| `gallery.ts` | Stills wall prints: captions, filename labels and images |
 | `registry.ts` | Gift copy, amount chips, payment link, bank details |
 | `faq.ts` | Questions and answers, sticker text, email button |
 | `dressCode.ts` | Dress-code cards and the named swatches |
@@ -48,8 +49,14 @@ Set `paymentUrl` in `src/content/registry.ts` (SnapScan, PayFast, Yoco, PayPal.m
 - `src/components/motion/Providers.tsx`: Lenis smooth scroll and the global reduced-motion switch (`prefers-reduced-motion` turns the scroll-linked effects off).
 - `Reveal`, `Stagger`, `StaggerItem`: fade-and-rise on scroll into view.
 - `Parallax`: clipped frame with a drifting image layer. `Drift`: shifts a block on scroll for staggered columns.
-- `SplitLines`: the hero names sliding up word by word.
+- `SplitLines`: the hero names sliding up word by word; lines can sit left or right so they bleed off the frame.
 - `DrawLineFrame`: the day-plan rule drawing itself as you scroll.
+- `ImageReveal`: photos wipe in from a clipped edge while settling from a slight zoom.
+- `Road`: the story's winding road, drawn on scroll with a stop per chapter.
+- `Marquee`: the giant italic place-and-date line that drifts sideways and speeds up with the scroll.
+- `Ghost`: translucent initials behind a section, moving at their own speed.
+- The hero botanicals scroll at different rates and lean with the pointer on desktop.
+- The nav collapses to a full-screen menu under 768px and shows a coral scroll-progress hairline.
 
 ## Deploy
 

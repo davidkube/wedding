@@ -15,7 +15,7 @@ export function Footer() {
                 <a
                   key={l.label}
                   href={l.href}
-                  className="block transition-colors hover:text-oat"
+                  className="block break-words transition-colors hover:text-oat [overflow-wrap:anywhere]"
                   {...(l.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
                 >
                   {l.label}

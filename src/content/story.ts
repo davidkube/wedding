@@ -10,9 +10,12 @@ export const story = {
     { when: "2027 · Jan", what: "Paarl" },
   ],
   photos: [
-    { src: "/images/kiss.jpg", alt: "A kiss by an amber window", objectPosition: "55% 50%" },
-    { placeholder: "city street shot · graffiti wall" },
+    { src: "/images/kiss.jpg", alt: "A kiss by an amber window", objectPosition: "55% 50%", caption: "Bree St, 2019" },
+    { placeholder: "city street shot · graffiti wall", caption: "Obs, 2023" },
   ] as ReadonlyArray<
-    { src: string; alt: string; objectPosition?: string; placeholder?: never } | { placeholder: string; src?: never }
+    | { src: string; alt: string; objectPosition?: string; caption: string; placeholder?: never }
+    | { placeholder: string; caption: string; src?: never }
   >,
+  /** Label on the winding-road timeline. */
+  roadLabel: "Our winding road",
 } as const;

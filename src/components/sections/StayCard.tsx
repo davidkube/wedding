@@ -3,8 +3,9 @@
 import { motion } from "motion/react";
 import type { StayCard as StayCardT } from "@/content";
 import { Photo } from "@/components/ui/Photo";
+import { ImageReveal } from "@/components/motion/ImageReveal";
 
-export function StayCard({ stay }: { stay: StayCardT }) {
+export function StayCard({ stay, index = 0 }: { stay: StayCardT; index?: number }) {
   return (
     <motion.a
       href={stay.href}
@@ -15,11 +16,13 @@ export function StayCard({ stay }: { stay: StayCardT }) {
       initial="rest"
       animate="rest"
     >
-      <div className="relative aspect-[4/5] overflow-hidden">
-        <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-          <Photo image={stay.image} placeholder={stay.placeholder} tone={stay.tone} sizes="(max-width: 768px) 100vw, 360px" />
-        </motion.div>
-      </div>
+      <ImageReveal delay={index * 0.1}>
+        <div className="relative aspect-[4/5] overflow-hidden">
+          <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.05 } }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
+            <Photo image={stay.image} placeholder={stay.placeholder} tone={stay.tone} sizes="(max-width: 768px) 100vw, 360px" />
+          </motion.div>
+        </div>
+      </ImageReveal>
       <div className="mt-3 flex items-baseline justify-between gap-3 font-serif text-[24px] text-ink">
         <span>{stay.name}</span>
         <motion.span className="text-coral" variants={{ rest: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }}>

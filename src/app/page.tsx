@@ -1,5 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/sections/Hero";
+import { SaveTheDate } from "@/components/sections/SaveTheDate";
+import { MarqueeBand } from "@/components/sections/MarqueeBand";
 import { DayPlan } from "@/components/sections/DayPlan";
 import { Rsvp } from "@/components/sections/Rsvp";
 import { Travel } from "@/components/sections/Travel";
@@ -15,9 +17,11 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <SaveTheDate />
         <DayPlan />
         <Rsvp />
         <Travel />
+        <MarqueeBand />
         <Story />
         <StillsWall />
         <Registry />
