@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="32" fill="#F1DDD6"/>
+  <path d="M32 7c14 0 25 11 25 25S46 57 32 57 7 46 7 32 18 7 32 7z" fill="none" stroke="#5D6B3B" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="32" y="39" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#5D6B3B">P&amp;D</text>
+</svg>

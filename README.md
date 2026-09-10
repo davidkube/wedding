@@ -1,0 +1,56 @@
+# Peighton & David · wedding site
+
+One-page wedding site. Next.js (App Router) + Tailwind v4 + Motion + Lenis. No database: it builds to static HTML and deploys to Vercel as-is.
+
+## Run it
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run lint
+```
+
+## Edit the copy
+
+Everything a guest reads lives in `src/content/`. Components only lay it out.
+
+| File | What it holds |
+| --- | --- |
+| `site.ts` | Names, date and times, venue and map link, email and phone, RSVP endpoint, page title and Open Graph text |
+| `nav.ts` | Sticky nav links |
+| `hero.ts` | Eyebrow, name lines, buttons, hero photo (or a muted video loop) |
+| `day.ts` | Day-plan timeline: times, titles, places, photos |
+| `rsvp.ts` | Summary cards, headline, form labels, options, success and error copy |
+| `travel.ts` | Three travel columns and the staggered stay cards |
+| `story.ts` | Start and end years, chapters, the two story photos |
+| `gallery.ts` | Stills wall captions and images |
+| `registry.ts` | Gift copy, amount chips, payment link, bank details |
+| `faq.ts` | Questions and answers, sticker text, email button |
+| `dressCode.ts` | Dress-code cards and the named swatches |
+| `footer.ts` | Footer link columns, sign-off line, wordmark |
+| `theme.ts` | Palette (mirrored in `src/app/globals.css` under `@theme`) |
+
+Photos go in `public/images/`. Any item with `placeholder: "..."` instead of `image: {...}` renders as a striped block with that label until the photo exists.
+
+## RSVP without a database
+
+The form posts JSON to `rsvpEndpoint` in `src/content/site.ts`. Point it at Formspree, Basin, Getform, a Google Apps Script web app, or your own function. Leave it empty and the form opens the guest's mail client with the reply pre-filled instead.
+
+Fields sent: `name`, `attending`, `meal`, `dietary`, `plusOne`.
+
+## Gifts
+
+Set `paymentUrl` in `src/content/registry.ts` (SnapScan, PayFast, Yoco, PayPal.me). The Give button opens it with `?amount=` and `?message=` appended. Leave it empty and the button reveals the bank details from the same file.
+
+## Motion
+
+- `src/components/motion/Providers.tsx`: Lenis smooth scroll and the global reduced-motion switch (`prefers-reduced-motion` turns the scroll-linked effects off).
+- `Reveal`, `Stagger`, `StaggerItem`: fade-and-rise on scroll into view.
+- `Parallax`: clipped frame with a drifting image layer. `Drift`: shifts a block on scroll for staggered columns.
+- `SplitLines`: the hero names sliding up word by word.
+- `DrawLineFrame`: the day-plan rule drawing itself as you scroll.
+
+## Deploy
+
+Push to GitHub and import the repo in Vercel. No environment variables are required. Set the real domain in `siteMeta.url` (`src/content/site.ts`) so Open Graph links resolve.

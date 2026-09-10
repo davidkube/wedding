@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/*
+  Palette and type roles. Hex values mirror `src/content/theme.ts`.
+  Fonts are loaded in `src/app/layout.tsx` with next/font and exposed as
+  CSS variables (--font-fraunces, --font-archivo, --font-plex-mono).
+*/
+@theme {
+  --color-blush: #f1ddd6;
+  --color-rose: #e3b9ae;
+  --color-rose-light: #ebcfc6;
+  --color-oat: #f3eee4;
+  --color-kraft: #cdb08a;
+  --color-olive: #5d6b3b;
+  --color-olive-light: #a9b37f;
+  --color-olive-pale: #dce0c9;
+  --color-olive-pale-2: #e6e9d6;
+  --color-coral: #dd6a4f;
+  --color-coral-light: #f28a6f;
+  --color-mustard: #d9b24a;
+  --color-olive-black: #1f251b;
+  --color-olive-black-2: #343a2b;
+  --color-olive-black-3: #3b4033;
+  --color-ink: #262b21;
+  --color-ink-soft: #5c6253;
+  --color-stone: #8b8672;
+  --color-stone-dark: #8f8b7a;
+  --color-oat-dim: #b3ad9b;
+  --color-olive-glow: #aebb80;
+
+  --font-serif: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-body: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "Courier New", monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-blush);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-coral);
+  color: var(--color-oat);
+}
+
+/* Reusable type roles */
+@utility eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+@utility mono-caps {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+@utility display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+@utility dotted-rule {
+  border-bottom: 1px dotted var(--color-stone);
+}
+@utility stripes-rose {
+  background: repeating-linear-gradient(135deg, #e3b9ae 0 8px, #ebcfc6 8px 16px);
+}
+@utility stripes-olive {
+  background: repeating-linear-gradient(135deg, #a9b37f 0 8px, #b9c193 8px 16px);
+}
+@utility stripes-pale {
+  background: repeating-linear-gradient(135deg, #dce0c9 0 8px, #e6e9d6 8px 16px);
+}
+@utility stripes-dark {
+  background: repeating-linear-gradient(135deg, #343a2b 0 8px, #3b4033 8px 16px);
+}
+@utility kraft-paper {
+  background-color: var(--color-kraft);
+  background-image:
+    radial-gradient(rgba(38, 43, 33, 0.06) 0.6px, transparent 0.7px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.03));
+  background-size: 3px 3px, 100% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
