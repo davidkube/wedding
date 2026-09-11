@@ -61,3 +61,19 @@ Set `paymentUrl` in `src/content/registry.ts` (SnapScan, PayFast, Yoco, PayPal.m
 ## Deploy
 
 Push to GitHub and import the repo in Vercel. No environment variables are required. Set the real domain in `siteMeta.url` (`src/content/site.ts`) so Open Graph links resolve.
+
+## Kinetic album
+
+`AlbumOverture` adds a native-scroll sticky tabletop between Travel and Story.
+Three prints fan out with independent translation, rotation and perspective as
+scroll progress advances; reversing the scroll reverses the composition. The
+sticky ancestor does not clip, so it works with native touch scrolling.
+
+`StillsWall` is an editorial photo deck with previous/next buttons and direct
+selection. Controls work with touch and keyboard, announce the current index,
+and keep covered photos out of the accessibility tree. New copy lives in
+`src/content/gallery.ts`. Existing placeholder photos remain editable there.
+
+Reduced motion removes the pinned scene in favour of a static three-print
+layout and makes deck selection instant. Lenis wheel smoothing is also disabled.
+No new runtime packages were added.

@@ -1,3 +1,4 @@
+import { AlbumOverture } from "@/components/sections/AlbumOverture";
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { SaveTheDate } from "@/components/sections/SaveTheDate";
@@ -22,6 +23,7 @@ export default function Home() {
         <Rsvp />
         <Travel />
         <MarqueeBand />
+        <AlbumOverture />
         <Story />
         <StillsWall />
         <Registry />
