@@ -61,3 +61,21 @@ Set `paymentUrl` in `src/content/registry.ts` (SnapScan, PayFast, Yoco, PayPal.m
 ## Deploy
 
 Push to GitHub and import the repo in Vercel. No environment variables are required. Set the real domain in `siteMeta.url` (`src/content/site.ts`) so Open Graph links resolve.
+
+## Kinetic album
+
+`AlbumOverture` now renders a native horizontal filmstrip between Travel and
+Story. Mouse drag enhances ordinary touch/trackpad scrolling. Arrow controls,
+Left/Right, Home and End provide alternatives. The images pan within oversized
+frames as horizontal scroll progress changes, with no animation loop at rest.
+
+`StillsWall` uses Motion layout projection to unfold the same photo elements
+from a stack into an asymmetric contact sheet. The selected photograph becomes
+the large print. Close or Escape restores the stack and returns focus to the
+album toggle. Covered images are hidden from assistive technology only while
+closed. Selection is announced, and no modal or focus trap is introduced.
+
+Reduced motion disables inner-image parallax, smooth programmatic film scrolling
+and animated album transitions. Content stays scrollable and selectable.
+Copy and existing placeholder photos live in `src/content/gallery.ts`.
+No new runtime packages were added. Research: `docs/animation-research.md`.
