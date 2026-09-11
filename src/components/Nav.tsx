@@ -45,7 +45,7 @@ export function Nav() {
         )}
       >
         <a href="#top" className="flex items-center gap-2.5" aria-label="Back to top" onClick={() => setOpen(false)}>
-          <Monogram className={cn("transition-colors duration-500", open && "text-oat")} />
+          <Monogram className={cn("transition-colors duration-500", (open || !scrolled) && "text-oat")} />
         </a>
 
         <nav className="hidden items-center gap-x-[clamp(12px,2vw,28px)] font-body text-[11px] font-medium uppercase tracking-[0.16em] md:flex">
@@ -55,7 +55,7 @@ export function Nav() {
               href={l.href}
               className={cn(
                 "relative py-1 transition-colors hover:text-coral after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100",
-                "accent" in l && l.accent ? "text-coral" : "text-ink",
+                "accent" in l && l.accent ? "text-coral" : scrolled ? "text-ink" : "text-oat",
               )}
             >
               {l.label}
@@ -73,7 +73,7 @@ export function Nav() {
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((v) => !v)}
-            className={cn("relative flex h-10 w-10 items-center justify-center", open ? "text-oat" : "text-ink")}
+            className={cn("relative flex h-10 w-10 items-center justify-center", open || !scrolled ? "text-oat" : "text-ink")}
           >
             <motion.span className="absolute h-px w-5 bg-current" animate={{ rotate: open ? 45 : 0, y: open ? 0 : -3 }} transition={{ duration: 0.3 }} />
             <motion.span className="absolute h-px w-5 bg-current" animate={{ rotate: open ? -45 : 0, y: open ? 0 : 3 }} transition={{ duration: 0.3 }} />

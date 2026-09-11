@@ -6,6 +6,7 @@
  */
 export const palette = {
   blush: { hex: "#F1DDD6", name: "Blush", use: "page ground" },
+  wine: { hex: "#6B2432", name: "Wine", use: "hero ground" },
   rose: { hex: "#E3B9AE", name: "Dusty rose", use: "hero band, section bands" },
   oat: { hex: "#F3EEE4", name: "Oat", use: "second ground, cards, reply card" },
   kraft: { hex: "#CDB08A", name: "Kraft", use: "FAQ ground only" },
