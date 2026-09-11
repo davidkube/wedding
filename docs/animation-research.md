@@ -30,3 +30,9 @@ The current PR is only an initial foundation: the fan scene changes position and
 ## Evidence limits
 
 Reviewed accessible creator pages, Codrops articles and indexed YouTube metadata. Direct fetches of the two YouTube watch pages failed; the videos have not been watched end-to-end in this research pass. Hyperplexed's specific video is independently linked and described by Codrops. No third-party tutorial code or imagery was copied. Adaptations and prioritisation above are design judgments, not claims made by the source authors.
+
+## Implemented follow-up
+
+The recommended stack-to-contact-sheet layout transformation and scrubbable
+filmstrip are now implemented using the existing Motion dependency. The
+filmstrip replaces the initial sticky fan. No WebGL unroll was added.

@@ -17,6 +17,12 @@ export const gallery = {
     caption: "Ordinary days. Our favourite kind.",
     scroll: "KEEP SCROLLING ↓",
   },
+  film: {
+    label: "Scrubbable photo filmstrip",
+    hint: "Drag the film. Find a memory.",
+    previous: "Scroll filmstrip backwards",
+    next: "Scroll filmstrip forwards",
+  },
   deck: {
     label: "Photo album",
     eyebrow: "THE OUTTAKES / 2019—2026",
@@ -27,6 +33,8 @@ export const gallery = {
     previous: "Previous photograph",
     next: "Next photograph",
     choose: "Choose a photograph",
+    open: "Open the album",
+    close: "Close the album",
   },
   label: "Stills · 2019–2026 · admit all",
   stills: [

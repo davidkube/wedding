@@ -64,16 +64,18 @@ Push to GitHub and import the repo in Vercel. No environment variables are requi
 
 ## Kinetic album
 
-`AlbumOverture` adds a native-scroll sticky tabletop between Travel and Story.
-Three prints fan out with independent translation, rotation and perspective as
-scroll progress advances; reversing the scroll reverses the composition. The
-sticky ancestor does not clip, so it works with native touch scrolling.
+`AlbumOverture` now renders a native horizontal filmstrip between Travel and
+Story. Mouse drag enhances ordinary touch/trackpad scrolling. Arrow controls,
+Left/Right, Home and End provide alternatives. The images pan within oversized
+frames as horizontal scroll progress changes, with no animation loop at rest.
 
-`StillsWall` is an editorial photo deck with previous/next buttons and direct
-selection. Controls work with touch and keyboard, announce the current index,
-and keep covered photos out of the accessibility tree. New copy lives in
-`src/content/gallery.ts`. Existing placeholder photos remain editable there.
+`StillsWall` uses Motion layout projection to unfold the same photo elements
+from a stack into an asymmetric contact sheet. The selected photograph becomes
+the large print. Close or Escape restores the stack and returns focus to the
+album toggle. Covered images are hidden from assistive technology only while
+closed. Selection is announced, and no modal or focus trap is introduced.
 
-Reduced motion removes the pinned scene in favour of a static three-print
-layout and makes deck selection instant. Lenis wheel smoothing is also disabled.
-No new runtime packages were added.
+Reduced motion disables inner-image parallax, smooth programmatic film scrolling
+and animated album transitions. Content stays scrollable and selectable.
+Copy and existing placeholder photos live in `src/content/gallery.ts`.
+No new runtime packages were added. Research: `docs/animation-research.md`.

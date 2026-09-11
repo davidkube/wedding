@@ -1,41 +1,51 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type PointerEvent } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { gallery } from "@/content";
+import { gallery, type Still } from "@/content";
 import { Photo } from "@/components/ui/Photo";
 
-function Print({ index, progress }: { index: number; progress: MotionValue<number> }) {
-  const item = gallery.stills[index];
-  const side = index - 1;
-  const x = useTransform(progress, [0, .65, 1], [`${side * 6}%`, `${side * 88}%`, `${side * 100}%`]);
-  const y = useTransform(progress, [0, .65, 1], [70 + index * 12, side === 0 ? -30 : 40, -60]);
-  const rotate = useTransform(progress, [0, .65, 1], [side * 3, side * 14, side * 19]);
-  const rotateY = useTransform(progress, [0, .65], [side * -28, side * 7]);
-  return <motion.figure className="overture-print" style={{ x, y, rotate, rotateY, zIndex: index === 1 ? 3 : 2 }}>
-    <div className="overture-image"><Photo image={item.image} sizes="(max-width: 700px) 46vw, 340px" /></div>
-    <figcaption><span>{item.caption}</span><span>0{index + 1}</span></figcaption>
-  </motion.figure>;
+function FilmFrame({ item, index, progress }: { item: Still; index: number; progress: MotionValue<number> }) {
+  const reduced = useReducedMotion();
+  const x = useTransform(progress, [0, 1], ["-6%", "6%"]);
+  return <figure className="film-frame">
+    <div className="film-image"><motion.div className="film-image-inner" style={reduced ? undefined : { x }}><Photo image={item.image} placeholder={item.placeholder} tone="rose" sizes="(max-width: 760px) 75vw, 420px" /></motion.div></div>
+    <figcaption><span>0{index + 1}</span><span>{item.caption}</span><span aria-hidden>✦</span></figcaption>
+  </figure>;
 }
 
-/** The sticky viewport is outside the clipping stage so native scrolling stays intact. */
+/** Native touch scrolling with mouse drag enhancement; no wheel or touch interception. */
 export function AlbumOverture() {
-  const ref = useRef<HTMLElement>(null);
+  const viewport = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ id: number; x: number; left: number } | null>(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const titleX = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
-  const rule = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  return <section ref={ref} className="album-overture" aria-label={gallery.overture.label}>
-    <div className="overture-sticky">
-      <div className="overture-meta"><span>{gallery.overture.archive}</span><span>{gallery.overture.established}</span></div>
-      <div className="overture-stage">
-        <motion.h2 style={reduced ? undefined : { x: titleX }} className="overture-title">{gallery.overture.title} <em>{gallery.overture.emphasis}</em></motion.h2>
-        <div className="overture-prints">
-          {reduced ? gallery.stills.slice(0, 3).map((item, index) => <figure key={item.file} className="overture-print"><div className="overture-image"><Photo image={item.image} sizes="33vw" /></div><figcaption>{item.caption}<span>0{index + 1}</span></figcaption></figure>) : [0, 1, 2].map(index => <Print key={index} index={index} progress={scrollYProgress} />)}
-        </div>
-      </div>
-      <div className="overture-foot"><span>{gallery.overture.caption}</span><span className="overture-scroll">{gallery.overture.scroll}</span></div>
-      <motion.div aria-hidden className="overture-progress" style={reduced ? { scaleX: 1 } : { scaleX: rule }} />
+  const { scrollXProgress } = useScroll({ container: viewport });
+  function down(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
+    drag.current = { id: event.pointerId, x: event.clientX, left: event.currentTarget.scrollLeft };
+    event.currentTarget.setPointerCapture(event.pointerId);
+    event.currentTarget.dataset.dragging = "true";
+  }
+  function release(event: PointerEvent<HTMLDivElement>) {
+    drag.current = null;
+    delete event.currentTarget.dataset.dragging;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+  }
+  function step(direction: number) {
+    const el = viewport.current;
+    if (el) el.scrollBy({ left: direction * el.clientWidth * .75, behavior: reduced ? "instant" : "smooth" });
+  }
+  return <section className="film-room" aria-labelledby="film-title">
+    <div className="film-heading"><div><span className="mono-caps">{gallery.overture.archive}</span><h2 id="film-title">{gallery.overture.title} <em>{gallery.overture.emphasis}</em></h2></div><p id="film-help">{gallery.film.hint}</p></div>
+    <div ref={viewport} className="film-viewport" tabIndex={0} role="region" aria-label={gallery.film.label} aria-describedby="film-help" data-lenis-prevent
+      onPointerDown={down} onPointerMove={event => { if (drag.current) event.currentTarget.scrollLeft = drag.current.left - (event.clientX - drag.current.x); }}
+      onPointerUp={release} onPointerCancel={release} onLostPointerCapture={release}
+      onKeyDown={event => {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); step(event.key === "ArrowRight" ? 1 : -1); }
+        if (event.key === "Home" || event.key === "End") { event.preventDefault(); const el = event.currentTarget; el.scrollTo({ left: event.key === "Home" ? 0 : el.scrollWidth, behavior: "instant" }); }
+      }}>
+      <div className="film-track">{gallery.stills.map((item, index) => <FilmFrame key={item.file} item={item} index={index} progress={scrollXProgress} />)}</div>
     </div>
+    <div className="film-footer"><span>{gallery.overture.caption}</span><div className="film-meter" aria-hidden><motion.div style={{ scaleX: scrollXProgress }} /></div><div className="album-controls"><button type="button" onClick={() => step(-1)} aria-label={gallery.film.previous}>←</button><button type="button" onClick={() => step(1)} aria-label={gallery.film.next}>→</button></div></div>
   </section>;
 }
