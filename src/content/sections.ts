@@ -4,15 +4,13 @@
  */
 export const pageSections = [
   { number: 1, id: "top", title: "Hero", content: "hero.ts" },
-  { number: 2, id: "stills", title: "Stills", content: "gallery.ts" },
-  { number: 3, id: "day", title: "The day", content: "day.ts" },
-  { number: 4, id: "rsvp", title: "RSVP", content: "rsvp.ts" },
-  { number: 5, id: "travel", title: "Travel & stay", content: "travel.ts" },
-  { number: 6, id: "marquee", title: "Marquee", content: "saveTheDate.ts · marquee" },
-  { number: 7, id: "story", title: "Story", content: "story.ts" },
-  { number: 8, id: "registry", title: "Registry", content: "registry.ts" },
-  { number: 9, id: "faq", title: "FAQ", content: "faq.ts · dressCode.ts" },
-  { number: 10, id: "footer", title: "Footer", content: "footer.ts" },
+  { number: 2, id: "day", title: "The day", content: "day.ts" },
+  { number: 3, id: "rsvp", title: "RSVP", content: "rsvp.ts" },
+  { number: 4, id: "travel", title: "Travel & stay", content: "travel.ts" },
+  { number: 5, id: "story", title: "Story", content: "story.ts" },
+  { number: 6, id: "stills", title: "Stills", content: "gallery.ts" },
+  { number: 7, id: "faq", title: "FAQ", content: "faq.ts · dressCode.ts" },
+  { number: 8, id: "footer", title: "Footer", content: "footer.ts" },
 ] as const;
 
 export type PageSectionId = (typeof pageSections)[number]["id"];

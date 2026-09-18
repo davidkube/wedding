@@ -30,7 +30,15 @@ export function Story() {
               {story.chapters.map((c, i) => (
                 <Reveal key={c.when} delay={i * 0.5} amount={0.6} className="flex min-h-[84px] flex-col justify-center py-3 pl-2">
                   <span className="font-mono text-[12px] text-coral">{c.when}</span>
-                  <span className="mt-1 font-serif text-[clamp(19px,1.8vw,22px)] leading-[1.1]">{c.what}</span>
+                  <span className="mt-1 font-serif text-[clamp(19px,1.8vw,22px)] leading-[1.1]">
+                    {Array.isArray(c.what)
+                      ? c.what.map((part, pi) => (
+                          <span key={pi} className={part.strike ? "line-through decoration-2 text-ink-soft" : undefined}>
+                            {part.text}
+                          </span>
+                        ))
+                      : c.what}
+                  </span>
                 </Reveal>
               ))}
             </Road>

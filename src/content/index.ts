@@ -9,7 +9,6 @@ export * from "./rsvp";
 export * from "./travel";
 export * from "./story";
 export * from "./gallery";
-export * from "./registry";
 export * from "./faq";
 export * from "./dressCode";
 export * from "./footer";

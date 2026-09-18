@@ -1,18 +1,21 @@
-import { contact, event, venue } from "./site";
+import { contact } from "./site";
 
 export const rsvp = {
-  summary: [
-    { label: "Date", value: event.dateLong, tone: "coral" },
-    { label: "Place", value: venue.place, tone: "olive" },
-    { label: "Reply by", value: event.rsvpBy, tone: "muted" },
-  ] as const,
   eyebrow: "Kindly reply",
   titleLines: ["Will you", "join us?"],
   intro:
     "We would love to have you with us in Paarl. Please reply for everyone on your invitation, and tell us anything the kitchen should know.",
-  questionsLine: `Questions · ${contact.email}`,
+  giftNote:
+    "Your being there is the only gift we need. If you would still like to give something, a contribution towards our honeymoon would mean the world.",
   form: {
-    name: { label: "Your name", placeholder: "Peighton's cousin Anna" },
+    guest: {
+      label: "Your name",
+      /** Label for the second and later fields. */
+      labelMore: "Guest name",
+      placeholder: "Peighton's cousin Anna",
+      add: "+ Add a guest",
+      remove: "Remove",
+    },
     attending: {
       label: "Coming?",
       options: [
@@ -29,12 +32,6 @@ export const rsvp = {
       ],
     },
     dietary: { label: "Dietary note", placeholder: "Allergies, anything we should know" },
-    plusOne: {
-      addLabel: "+ Add a plus-one",
-      removeLabel: "− Remove plus-one",
-      nameLabel: "Their name",
-      namePlaceholder: "Plus-one's name",
-    },
     submit: "Send reply",
     sending: "Sending…",
     success: { title: "Thank you.", body: "Your reply is in. We will see you in Paarl." },

@@ -8,35 +8,39 @@ import { Eyebrow } from "@/components/ui/Type";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Input, Label, Textarea } from "@/components/ui/Field";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
-import { cn } from "@/lib/cn";
+import { Reveal } from "@/components/motion/Reveal";
 import { Ghost } from "@/components/motion/Ghost";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-const toneClass = { coral: "text-coral", olive: "text-olive", muted: "text-stone" } as const;
-
 export function Rsvp() {
   const f = rsvp.form;
-  const [name, setName] = useState("");
+  const [guests, setGuests] = useState<string[]>([""]);
   const [attending, setAttending] = useState<string>("");
   const [meal, setMeal] = useState<string>("");
   const [dietary, setDietary] = useState("");
-  const [plusOne, setPlusOne] = useState(false);
-  const [plusOneName, setPlusOneName] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
+  function updateGuest(i: number, value: string) {
+    setGuests((gs) => gs.map((g, gi) => (gi === i ? value : g)));
+  }
+  function addGuest() {
+    setGuests((gs) => [...gs, ""]);
+  }
+  function removeGuest(i: number) {
+    setGuests((gs) => gs.filter((_, gi) => gi !== i));
+  }
+
   const payload = () => ({
-    name,
+    guests: guests.filter(Boolean).join(", "),
     attending: f.attending.options.find((o) => o.value === attending)?.label ?? "",
     meal: f.meal.options.find((o) => o.value === meal)?.label ?? "",
     dietary,
-    plusOne: plusOne ? plusOneName : "",
   });
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!name || !attending) return;
+    if (!guests[0] || !attending) return;
     const data = payload();
 
     if (!rsvpEndpoint) {
@@ -63,22 +67,13 @@ export function Rsvp() {
   }
 
   return (
-    <Section id="rsvp" ground="oat" className="relative overflow-hidden">
+    <Section id="rsvp" ground="olive" className="relative overflow-hidden">
       <Ghost letter="&" className="-right-[0.05em] bottom-[-0.1em]" distance={70} />
       <div className="relative">
-      <Stagger className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2.5">
-        {rsvp.summary.map((s) => (
-          <StaggerItem key={s.label} className="border border-ink/15 bg-oat px-3.5 py-3">
-            <div className={cn("eyebrow text-[10px] tracking-[0.18em]", toneClass[s.tone])}>{s.label}</div>
-            <div className="mt-1 font-serif text-[20px] text-ink">{s.value}</div>
-          </StaggerItem>
-        ))}
-      </Stagger>
-
-      <div className="mt-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(24px,4vw,64px)]">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(24px,4vw,64px)]">
         <Reveal>
           <Eyebrow sectionId="rsvp">{rsvp.eyebrow}</Eyebrow>
-          <h2 className="display mt-3 text-olive text-[clamp(40px,5.6vw,76px)]">
+          <h2 className="display mt-3 text-blush text-[clamp(40px,5.6vw,76px)]">
             {rsvp.titleLines.map((l) => (
               <span key={l} className="block">
                 {l}
@@ -86,7 +81,7 @@ export function Rsvp() {
             ))}
           </h2>
           <p className="mt-[18px] max-w-[44ch]">{rsvp.intro}</p>
-          <p className="mt-3.5 font-mono text-[12px] text-ink-soft">{rsvp.questionsLine}</p>
+          <p className="mt-3.5 max-w-[44ch] font-serif text-[15px] italic text-oat-dim">{rsvp.giftNote}</p>
         </Reveal>
 
         <Reveal delay={1} className="relative border border-ink/20 bg-oat p-[clamp(20px,2.4vw,32px)]">
@@ -104,9 +99,35 @@ export function Rsvp() {
               </motion.div>
             ) : (
               <motion.form key="form" onSubmit={onSubmit} className="grid gap-4" exit={{ opacity: 0 }}>
-                <div>
-                  <Label htmlFor="rsvp-name">{f.name.label}</Label>
-                  <Input id="rsvp-name" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={f.name.placeholder} required />
+                <div className="grid gap-2.5">
+                  {guests.map((guest, i) => (
+                    <div key={i}>
+                      <Label htmlFor={`rsvp-guest-${i}`}>{i === 0 ? f.guest.label : f.guest.labelMore}</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          id={`rsvp-guest-${i}`}
+                          name={`guest-${i}`}
+                          value={guest}
+                          onChange={(e) => updateGuest(i, e.target.value)}
+                          placeholder={f.guest.placeholder}
+                          required={i === 0}
+                        />
+                        {guests.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeGuest(i)}
+                            aria-label={f.guest.remove}
+                            className="shrink-0 border border-ink/30 px-3 font-mono text-[13px] text-ink hover:bg-blush"
+                          >
+                            −
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                  <button type="button" onClick={addGuest} className="justify-self-start font-mono text-[12px] text-ink underline-offset-4 hover:underline">
+                    {f.guest.add}
+                  </button>
                 </div>
 
                 <fieldset>
@@ -146,30 +167,8 @@ export function Rsvp() {
                   <Textarea id="rsvp-dietary" name="dietary" value={dietary} onChange={(e) => setDietary(e.target.value)} placeholder={f.dietary.placeholder} />
                 </div>
 
-                <AnimatePresence initial={false}>
-                  {plusOne && (
-                    <motion.div
-                      key="plus"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <Label htmlFor="rsvp-plus">{f.plusOne.nameLabel}</Label>
-                      <Input id="rsvp-plus" name="plusOne" value={plusOneName} onChange={(e) => setPlusOneName(e.target.value)} placeholder={f.plusOne.namePlaceholder} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setPlusOne((v) => !v)}
-                    className="font-mono text-[12px] text-ink underline-offset-4 hover:underline"
-                  >
-                    {plusOne ? f.plusOne.removeLabel : f.plusOne.addLabel}
-                  </button>
-                  <Button type="submit" disabled={status === "sending" || !name || !attending}>
+                <div className="flex justify-end">
+                  <Button type="submit" disabled={status === "sending" || !guests[0] || !attending}>
                     {status === "sending" ? f.sending : f.submit}
                   </Button>
                 </div>

@@ -1,3 +1,5 @@
+import { venue } from "./site";
+
 export type StayCard = {
   name: string;
   href: string;
@@ -13,24 +15,7 @@ export const travel = {
   eyebrow: "Travel & stay",
   title: "Getting to Paarl",
   image: { src: "/images/laugh.jpg", alt: "The two of them laughing at a bar" },
-  columns: [
-    {
-      number: "01",
-      title: "Getting there",
-      body: "Fly into Cape Town (CPT). Paarl is 45 minutes up the N1. Hire a car, or book the shuttle we are running from the city at 13:30.",
-    },
-    {
-      number: "02",
-      title: "Where to stay",
-      body: "Cottages on the farm for family; guesthouses in Paarl town for everyone else. Three we like are below.",
-    },
-    {
-      number: "03",
-      title: "Getting around",
-      body: "Uber works in Paarl. A shuttle back to town leaves at midnight and again at one.",
-      note: "Visiting from abroad? Most passports get 90 days visa-free.",
-    },
-  ],
+  mapCta: { label: "Open in Google Maps", href: venue.mapUrl },
   stays: [
     {
       name: "Zonnevanger Cottages",

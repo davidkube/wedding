@@ -16,7 +16,7 @@ const TILT = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.4];
  */
 export function StillsWall() {
   return (
-    <Section id="stills" ground="olive" className="relative z-0 overflow-hidden pb-[clamp(72px,10vw,140px)]">
+    <Section id="stills" ground="olive" className="relative z-10 overflow-hidden pb-[clamp(72px,10vw,140px)]">
       <div aria-hidden className="grain pointer-events-none absolute inset-0" />
       <div className="relative">
         <Reveal className="inline-block border border-dashed border-olive-light/70 px-[18px] py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-olive-light">

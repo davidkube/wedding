@@ -57,8 +57,8 @@ html.lenis body {
 }
 
 body {
-  background: var(--color-blush);
-  color: var(--color-ink);
+  background: var(--color-wine);
+  color: var(--color-oat);
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.55;
@@ -123,6 +123,11 @@ body {
 @utility sprockets {
   background: repeating-linear-gradient(90deg, transparent 0 10px, currentColor 10px 22px);
   background-size: 22px 100%;
+}
+/* Film sprockets along a vertical edge. */
+@utility sprockets-v {
+  background: repeating-linear-gradient(180deg, transparent 0 10px, currentColor 10px 22px);
+  background-size: 100% 22px;
 }
 /* A polaroid-style print: oat mount, wider at the foot. */
 @utility polaroid {

@@ -45,7 +45,7 @@ export function SplitLines({
             return (
               <motion.span
                 key={wi}
-                className="inline-block pb-[0.16em] will-change-transform"
+                className="inline-block pb-[0.16em]"
                 initial={{ y: "110%", rotate: 3, opacity: 0 }}
                 animate={{ y: 0, rotate: 0, opacity: 1 }}
                 transition={{ duration: 1.1, ease: EASE, delay: delay + idx * 0.09 }}

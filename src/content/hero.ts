@@ -1,16 +1,13 @@
 import { couple, event, venue } from "./site";
 
 export const hero = {
-  eyebrow: "Together with their families",
   /** Each entry is one line of the oversized serif; lines alternate left and right. */
   nameLines: [couple.first, `& ${couple.second}`],
-  primaryCta: { label: `RSVP by ${event.rsvpByShort}`, href: "#rsvp" },
   /**
    * The ticket-style invitation card that sits over the hero photo.
    */
   ticket: {
     eyebrow: "You are invited",
-    names: couple.names,
     date: `${event.dateSpelled}, ${new Date(event.start).getFullYear()}`,
     time: event.timeSpelled,
     place: venue.place,
@@ -26,5 +23,10 @@ export const hero = {
     alt: `${couple.first} and ${couple.second} in a bar, laughing`,
     objectPosition: "60% 40%",
     video: "" as string,
+  },
+  /** Silent looping clip in the side panel next to the hero, desktop only. */
+  sideVideo: {
+    src: "/videos/hero-loop.mp4",
+    alt: `${couple.first} and ${couple.second}, a home movie`,
   },
 } as const;

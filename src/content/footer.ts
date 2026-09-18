@@ -1,4 +1,4 @@
-import { contact, couple, event, venue } from "./site";
+import { couple, event, venue } from "./site";
 
 export const footer = {
   columns: [
@@ -15,22 +15,13 @@ export const footer = {
       links: [
         { label: "Getting there", href: "#travel" },
         { label: "Where to stay", href: "#stays" },
-        { label: "Shuttles", href: "#travel" },
       ],
     },
     {
       title: "You",
       links: [
         { label: "RSVP", href: "#rsvp" },
-        { label: "Registry", href: "#registry" },
         { label: "FAQ", href: "#faq" },
-      ],
-    },
-    {
-      title: "Write",
-      links: [
-        { label: contact.email, href: `mailto:${contact.email}` },
-        { label: contact.phone, href: `tel:${contact.phone.replace(/\s+/g, "")}` },
       ],
     },
   ],

@@ -15,8 +15,3 @@ export const saveTheDate = {
   /** Ghost initials behind the numerals. */
   ghost: "P&D",
 } as const;
-
-/** The oversized italic line that scrolls sideways between Travel and Story. */
-export const marquee = {
-  text: `${venue.town}, ${venue.region.split(",")[0]} ✦ ${event.dateLong} ✦ `,
-} as const;

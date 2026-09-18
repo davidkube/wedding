@@ -47,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${fraunces.variable} ${archivo.variable} ${plexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-blush text-ink">
+      <body className="min-h-full flex flex-col bg-wine text-oat">
         <Providers>{children}</Providers>
       </body>
     </html>

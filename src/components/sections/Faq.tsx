@@ -5,11 +5,11 @@ import { useState } from "react";
 import { dressCode, faq } from "@/content";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow, Title } from "@/components/ui/Type";
-import { LinkButton } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { cn } from "@/lib/cn";
 import { ImageReveal } from "@/components/motion/ImageReveal";
+import { waveOverlapClass, waveOverlapPaddingClass } from "@/components/ui/Wave";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -44,7 +44,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(1);
 
   return (
-    <Section id="faq" ground="wine" className="relative">
+    <Section id="faq" ground="wine" className={cn("relative z-0", waveOverlapClass, waveOverlapPaddingClass)}>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(24px,4vw,64px)]">
         <Reveal className="relative">
           <Eyebrow tone="coral" sectionId="faq">{faq.eyebrow}</Eyebrow>
@@ -59,9 +59,6 @@ export function Faq() {
           >
             {faq.sticker}
           </motion.div>
-          <LinkButton variant="ink" href={faq.emailCta.href} className="mt-7">
-            {faq.emailCta.label} →
-          </LinkButton>
         </Reveal>
 
         <Reveal delay={1}>

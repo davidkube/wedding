@@ -6,6 +6,8 @@ import { MARK_PATHS } from "./graphic";
 const CROPPED_VIEWBOX = "138 78 326 446";
 const TILE_W = 14;
 const TILE_H = 20;
+/** Slightly narrower than the tile for a hairline gap between columns. */
+const MARK_W = TILE_W - 1;
 
 type Props = {
   className?: string;
@@ -32,8 +34,8 @@ export function MarkPattern({ className, fill = "var(--color-blush)", opacity = 
         <pattern id={patternId} width={TILE_W} height={TILE_H} patternUnits="userSpaceOnUse">
           <use
             href={`#${markId}`}
-            x="-1"
-            width={TILE_W + 2}
+            x={(TILE_W - MARK_W) / 2}
+            width={MARK_W}
             height={TILE_H}
             opacity={opacity}
             fill={fill}

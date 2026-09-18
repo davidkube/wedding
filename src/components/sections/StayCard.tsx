@@ -23,13 +23,13 @@ export function StayCard({ stay, index = 0 }: { stay: StayCardT; index?: number 
           </motion.div>
         </div>
       </ImageReveal>
-      <div className="mt-3 flex items-baseline justify-between gap-3 font-serif text-[24px] text-ink">
+      <div className="mt-3 flex items-baseline justify-between gap-3 font-serif text-[24px] text-oat">
         <span>{stay.name}</span>
         <motion.span className="text-coral" variants={{ rest: { x: 0, y: 0 }, hover: { x: 3, y: -3 } }}>
           ↗
         </motion.span>
       </div>
-      <div className="mt-1 font-mono text-[12px] text-ink-soft">{stay.meta}</div>
+      <div className="mt-1 font-mono text-[12px] text-oat-dim">{stay.meta}</div>
     </motion.a>
   );
 }

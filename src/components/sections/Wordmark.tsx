@@ -9,7 +9,7 @@ export function Wordmark({ text }: { text: string }) {
   return (
     <div className="mt-3 overflow-hidden">
       <motion.div
-        className="display text-oat text-[clamp(56px,13.5vw,196px)] leading-[0.85] tracking-[-0.03em] text-balance"
+        className="display text-olive text-[clamp(56px,13.5vw,196px)] leading-[0.85] tracking-[-0.03em] text-balance"
         initial={{ y: "40%", opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.3 }}

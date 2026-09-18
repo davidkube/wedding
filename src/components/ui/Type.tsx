@@ -22,7 +22,7 @@ export function Eyebrow({
 export function Title({ className, ...rest }: ComponentPropsWithoutRef<"h2">) {
   return (
     <h2
-      className={cn("display mt-3 text-olive text-[clamp(40px,6vw,84px)] text-balance", className)}
+      className={cn("display mt-3 text-[clamp(40px,6vw,84px)] text-balance", className)}
       {...rest}
     />
   );
