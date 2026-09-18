@@ -8,6 +8,7 @@ import { Parallax } from "@/components/motion/Parallax";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { LinkButton } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import { waveOverlapClass, waveOverlapPaddingClass } from "@/components/ui/Wave";
 
 type Rows = React.CSSProperties & { "--row-m": number; "--row-d": number };
 
@@ -17,10 +18,10 @@ type Rows = React.CSSProperties & { "--row-m": number; "--row-d": number };
  */
 export function DayPlan() {
   return (
-    <Section id="day" ground="oat">
+    <Section id="day" ground="wine" className={cn("relative z-0", waveOverlapClass, waveOverlapPaddingClass)}>
       <Reveal>
-        <Eyebrow>{day.eyebrow}</Eyebrow>
-        <Title>{day.title}</Title>
+        <Eyebrow sectionId="day">{day.eyebrow}</Eyebrow>
+        <Title className="text-blush">{day.title}</Title>
         <p className="mt-[18px] max-w-[56ch]">{day.intro}</p>
       </Reveal>
 
@@ -49,8 +50,8 @@ export function DayPlan() {
                 style={rows}
               >
                 <div className="font-mono text-[12px] text-coral">{item.time}</div>
-                <div className="mt-1 font-serif text-[clamp(24px,2.4vw,32px)] leading-[1.05] text-ink">{item.title}</div>
-                <div className="mt-1.5 font-mono text-[12px] text-ink-soft">{item.place}</div>
+                <div className="mt-1 font-serif text-[clamp(24px,2.4vw,32px)] leading-[1.05]">{item.title}</div>
+                <div className="mt-1.5 font-mono text-[12px] text-oat-dim">{item.place}</div>
               </Reveal>
               {hasMedia && (
                 <Reveal

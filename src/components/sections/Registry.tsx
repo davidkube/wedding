@@ -49,7 +49,7 @@ export function Registry() {
   }
 
   return (
-    <Section id="registry" ground="blush" width="narrow">
+    <Section id="registry" ground="olive" width="narrow">
       <Reveal className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] border border-ink/20 bg-oat">
         <div className="relative min-h-[220px] overflow-hidden">
           {registry.illustration.placeholder ? (
@@ -61,7 +61,7 @@ export function Registry() {
           )}
         </div>
         <div className="grid content-start gap-3.5 p-[clamp(20px,2.6vw,32px)]">
-          <Eyebrow>{registry.eyebrow}</Eyebrow>
+          <Eyebrow sectionId="registry">{registry.eyebrow}</Eyebrow>
           <div className="font-serif text-[clamp(28px,3vw,40px)] leading-none text-olive">{registry.title}</div>
           <p className="text-[14px]">{registry.body}</p>
           <div className="flex flex-wrap gap-2">

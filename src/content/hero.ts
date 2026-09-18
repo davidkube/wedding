@@ -4,9 +4,7 @@ export const hero = {
   eyebrow: "Together with their families",
   /** Each entry is one line of the oversized serif; lines alternate left and right. */
   nameLines: [couple.first, `& ${couple.second}`],
-  dateLine: `${event.dateLong} · ${venue.place}`,
   primaryCta: { label: `RSVP by ${event.rsvpByShort}`, href: "#rsvp" },
-  secondaryCta: { label: "Add to calendar" },
   /**
    * The ticket-style invitation card that sits over the hero photo.
    */

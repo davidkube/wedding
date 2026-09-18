@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 function Item({ q, a, open, onToggle, last }: { q: string; a: string; open: boolean; onToggle: () => void; last: boolean }) {
   return (
-    <div className={cn("py-4", !last && "border-b border-dotted border-ink")}>
+    <div className={cn("py-4", !last && "border-b border-dotted border-oat/35")}>
       <button type="button" onClick={onToggle} aria-expanded={open} className="flex w-full items-start justify-between gap-4 text-left">
         <span className="font-serif text-[20px] leading-[1.15]">{q}</span>
         <motion.span animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.3 }} className="mt-0.5 font-mono text-[16px] leading-none">
@@ -44,11 +44,11 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(1);
 
   return (
-    <Section id="faq" ground="kraft" className="relative">
+    <Section id="faq" ground="wine" className="relative">
       <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(24px,4vw,64px)]">
         <Reveal className="relative">
-          <Eyebrow tone="ink">{faq.eyebrow}</Eyebrow>
-          <Title>{faq.title}</Title>
+          <Eyebrow tone="coral" sectionId="faq">{faq.eyebrow}</Eyebrow>
+          <Title className="text-blush">{faq.title}</Title>
           <motion.div
             className="absolute right-0 -top-2 rounded-full bg-oat px-4 py-2.5 font-serif text-[18px] italic text-coral shadow-[0_2px_0_rgba(38,43,33,0.25)]"
             initial={{ rotate: -7, scale: 0, opacity: 0 }}
@@ -73,7 +73,7 @@ export function Faq() {
 
       <div className="mt-[clamp(40px,6vw,80px)]">
         <Reveal>
-          <Eyebrow tone="ink">{dressCode.eyebrow}</Eyebrow>
+          <Eyebrow tone="coral" sectionId="faq">{dressCode.eyebrow}</Eyebrow>
         </Reveal>
         <Stagger className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
           {dressCode.cards.map((c) => (
@@ -104,7 +104,7 @@ export function Faq() {
                     <br />
                     {s.hex}
                     <br />
-                    <span className="text-ink-soft">
+                    <span className="text-oat-dim">
                       {r} {g} {b}
                     </span>
                   </div>

@@ -10,13 +10,13 @@ import { StayCard } from "./StayCard";
 
 export function Travel() {
   return (
-    <Section id="travel" ground="oat" className="relative overflow-hidden">
+    <Section id="travel" ground="olive" className="relative overflow-hidden">
       <Ghost letter="D" className="-right-[0.12em] top-[4%]" distance={120} />
       <div className="relative">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-end gap-[clamp(20px,3vw,48px)]">
           <Reveal>
-            <Eyebrow>{travel.eyebrow}</Eyebrow>
-            <Title>{travel.title}</Title>
+            <Eyebrow sectionId="travel">{travel.eyebrow}</Eyebrow>
+            <Title className="text-blush">{travel.title}</Title>
           </Reveal>
           <ImageReveal from="right" delay={0.15}>
             <Parallax className="aspect-[3/2]" strength={0.14}>
@@ -25,7 +25,7 @@ export function Travel() {
           </ImageReveal>
         </div>
 
-        <Stagger className="mt-[clamp(28px,4vw,56px)] grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[clamp(20px,3vw,40px)] border-t border-ink/20 pt-6">
+        <Stagger className="mt-[clamp(28px,4vw,56px)] grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[clamp(20px,3vw,40px)] border-t border-oat/25 pt-6">
           {travel.columns.map((c) => (
             <StaggerItem key={c.number}>
               <div className="font-mono text-[12px] text-coral">

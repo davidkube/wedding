@@ -1,9 +1,22 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { PageSectionId } from "@/content/sections";
+import { numberedEyebrow } from "@/content/sections";
 import { cn } from "@/lib/cn";
 
-export function Eyebrow({ className, tone = "coral", ...rest }: ComponentPropsWithoutRef<"div"> & { tone?: "coral" | "ink" | "olive" | "muted" }) {
+export function Eyebrow({
+  className,
+  tone = "coral",
+  sectionId,
+  children,
+  ...rest
+}: ComponentPropsWithoutRef<"div"> & { tone?: "coral" | "ink" | "olive" | "muted"; sectionId?: PageSectionId; children?: ReactNode }) {
   const tones = { coral: "text-coral", ink: "text-ink", olive: "text-olive", muted: "text-stone" };
-  return <div className={cn("eyebrow", tones[tone], className)} {...rest} />;
+  const label = sectionId && children != null ? numberedEyebrow(sectionId, String(children)) : children;
+  return (
+    <div className={cn("eyebrow", tones[tone], className)} {...rest}>
+      {label}
+    </div>
+  );
 }
 
 export function Title({ className, ...rest }: ComponentPropsWithoutRef<"h2">) {

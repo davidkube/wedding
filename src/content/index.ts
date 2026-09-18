@@ -1,3 +1,4 @@
+export * from "./sections";
 export * from "./site";
 export * from "./theme";
 export * from "./nav";

@@ -14,12 +14,12 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Story() {
   return (
-    <Section id="story" ground="blush" className="relative overflow-hidden">
+    <Section id="story" ground="oat" className="relative overflow-hidden">
       <Ghost letter="P" className="-left-[0.1em] top-[12%]" />
       <div className="relative">
         <Reveal className="flex items-baseline justify-between gap-4 border-b border-ink pb-2.5">
           <span className="font-serif text-[clamp(32px,4vw,56px)] leading-none text-olive">{story.startYear}</span>
-          <Eyebrow>{story.eyebrow}</Eyebrow>
+          <Eyebrow sectionId="story">{story.eyebrow}</Eyebrow>
           <span className="font-serif text-[clamp(32px,4vw,56px)] leading-none text-olive">{story.endYear}</span>
         </Reveal>
 

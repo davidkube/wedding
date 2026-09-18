@@ -13,24 +13,25 @@ npm run lint
 
 ## Edit the copy
 
-Everything a guest reads lives in `src/content/`. Components only lay it out.
+Everything a guest reads lives in `src/content/`. Components only lay it out. Scroll order and section numbers are defined once in `sections.ts` (also mirrored in comments in `src/app/page.tsx`).
 
-| File | What it holds |
-| --- | --- |
-| `site.ts` | Names, date and times, venue and map link, email and phone, RSVP endpoint, page title and Open Graph text |
-| `nav.ts` | Sticky nav links |
-| `hero.ts` | Eyebrow, name lines, buttons, the ticket card copy, hero photo (or a muted video loop) |
-| `saveTheDate.ts` | The olive-black poster band (numerals, countdown labels) and the marquee line |
-| `day.ts` | Day-plan timeline: times, titles, places, photos |
-| `rsvp.ts` | Summary cards, headline, form labels, options, success and error copy |
-| `travel.ts` | Three travel columns and the staggered stay cards |
-| `story.ts` | Start and end years, chapters on the winding road, the two polaroid photos and captions |
-| `gallery.ts` | Stills wall prints: captions, filename labels and images |
-| `registry.ts` | Gift copy, amount chips, payment link, bank details |
-| `faq.ts` | Questions and answers, sticker text, email button |
-| `dressCode.ts` | Dress-code cards and the named swatches |
-| `footer.ts` | Footer link columns, sign-off line, wordmark |
-| `theme.ts` | Palette (mirrored in `src/app/globals.css` under `@theme`) |
+| # | File | What it holds |
+| --- | --- | --- |
+| — | `sections.ts` | Canonical section order and `numberedEyebrow()` helper |
+| — | `site.ts` | Names, date and times, venue and map link, email and phone, RSVP endpoint, page title and Open Graph text |
+| — | `nav.ts` | Sticky nav links (numbered to match scroll order) |
+| — | `theme.ts` | Palette (mirrored in `src/app/globals.css` under `@theme`) |
+| 01 | `hero.ts` | Eyebrow, name lines, buttons, the ticket card copy, hero photo (or a muted video loop) |
+| 02 | `gallery.ts` | Stills wall prints: captions, filename labels and images |
+| 03 | `day.ts` | Day-plan timeline: times, titles, places, photos |
+| 04 | `rsvp.ts` | Summary cards, headline, form labels, options, success and error copy |
+| 05 | `travel.ts` | Three travel columns and the staggered stay cards |
+| 06 | `saveTheDate.ts` | Marquee line (`marquee`); unused save-the-date poster copy |
+| 07 | `story.ts` | Start and end years, chapters on the winding road, the two polaroid photos and captions |
+| 08 | `registry.ts` | Gift copy, amount chips, payment link, bank details |
+| 09 | `faq.ts` | Questions and answers, sticker text, email button |
+| 09 | `dressCode.ts` | Dress-code cards and swatches (same section as FAQ on the page) |
+| 10 | `footer.ts` | Footer link columns, sign-off line, wordmark |
 
 Photos go in `public/images/`. Any item with `placeholder: "..."` instead of `image: {...}` renders as a striped block with that label until the photo exists.
 

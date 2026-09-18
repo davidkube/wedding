@@ -58,15 +58,13 @@ export function Nav() {
                 "accent" in l && l.accent ? "text-coral" : scrolled ? "text-ink" : "text-oat",
               )}
             >
+              <span className="mr-1.5 font-mono text-[10px] tracking-[0.12em] text-coral">{l.number}</span>
               {l.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-4 md:hidden">
-          <a href="#rsvp" onClick={() => setOpen(false)} className={cn("font-body text-[11px] font-medium uppercase tracking-[0.16em] transition-colors", open ? "text-oat" : "text-coral")}>
-            RSVP
-          </a>
+        <div className="flex items-center md:hidden">
           <button
             type="button"
             aria-expanded={open}
@@ -108,7 +106,7 @@ export function Nav() {
                   transition={{ duration: 0.6, ease: EASE, delay: 0.15 + i * 0.06 }}
                 >
                   {l.label}
-                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-olive-pale">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-olive-pale">{l.number}</span>
                 </motion.a>
               ))}
             </nav>

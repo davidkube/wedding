@@ -63,7 +63,7 @@ export function Rsvp() {
   }
 
   return (
-    <Section id="rsvp" ground="blush" className="relative overflow-hidden">
+    <Section id="rsvp" ground="oat" className="relative overflow-hidden">
       <Ghost letter="&" className="-right-[0.05em] bottom-[-0.1em]" distance={70} />
       <div className="relative">
       <Stagger className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-2.5">
@@ -77,7 +77,7 @@ export function Rsvp() {
 
       <div className="mt-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-[clamp(24px,4vw,64px)]">
         <Reveal>
-          <Eyebrow>{rsvp.eyebrow}</Eyebrow>
+          <Eyebrow sectionId="rsvp">{rsvp.eyebrow}</Eyebrow>
           <h2 className="display mt-3 text-olive text-[clamp(40px,5.6vw,76px)]">
             {rsvp.titleLines.map((l) => (
               <span key={l} className="block">

@@ -2,13 +2,13 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { hero } from "@/content";
-import { downloadIcs } from "@/lib/calendar";
-import { Button, LinkButton } from "@/components/ui/Button";
+import { hero, numberedEyebrow } from "@/content";
+import { LinkButton } from "@/components/ui/Button";
 import { Photo } from "@/components/ui/Photo";
 import { Wave } from "@/components/ui/Wave";
 import { SplitLines } from "@/components/motion/SplitWords";
 import { Monogram } from "@/components/Monogram";
+import { MarkPattern } from "@/components/mark/MarkPattern";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const fade = (delay: number) => ({
@@ -42,31 +42,24 @@ export function Hero() {
   return (
     <div id="top">
       <section className="relative overflow-hidden bg-wine px-[clamp(16px,4vw,64px)] pb-[clamp(20px,3vw,40px)] pt-[clamp(104px,15vw,180px)] text-oat">
-        <motion.div ref={blockRef} className="relative mx-auto max-w-[1280px]" style={reduce ? undefined : { y: blockY, opacity: blockOpacity }}>
+        <MarkPattern className="z-0" />
+        <motion.div ref={blockRef} className="relative z-[1] mx-auto max-w-[1280px]" style={reduce ? undefined : { y: blockY, opacity: blockOpacity }}>
           <motion.div className="eyebrow text-center text-coral-light" {...fade(0.1)}>
-            {hero.eyebrow}
+            {numberedEyebrow("top", hero.eyebrow)}
           </motion.div>
           <SplitLines
             lines={hero.nameLines}
             align={["left", "right"]}
             delay={0.25}
-            className="display -mx-[0.06em] mt-[clamp(14px,2vw,28px)] text-blush text-[clamp(78px,19.5vw,272px)] leading-[0.95]"
+            className="display mt-[clamp(14px,2vw,28px)] px-[clamp(12px,4vw,48px)] text-blush text-[clamp(68px,17vw,240px)] leading-[0.95]"
           />
-          <div className="mt-[clamp(20px,3vw,44px)] flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
-            <motion.div className="font-mono text-[clamp(12px,1.1vw,15px)] tracking-[0.04em]" {...fade(0.8)}>
-              {hero.dateLine}
-            </motion.div>
-            <motion.div className="flex flex-wrap gap-3" {...fade(0.95)}>
-              <LinkButton href={hero.primaryCta.href}>{hero.primaryCta.label}</LinkButton>
-              <Button variant="light" onClick={downloadIcs}>
-                {hero.secondaryCta.label}
-              </Button>
-            </motion.div>
-          </div>
+          <motion.div className="mt-[clamp(20px,3vw,44px)] flex justify-center" {...fade(0.8)}>
+            <LinkButton href={hero.primaryCta.href}>{hero.primaryCta.label}</LinkButton>
+          </motion.div>
         </motion.div>
       </section>
 
-      <section ref={bandRef} className="relative overflow-x-clip bg-rose px-[clamp(16px,4vw,64px)] pb-[clamp(60px,9vw,120px)] pt-[clamp(20px,3vw,44px)]">
+      <section ref={bandRef} className="relative overflow-x-clip bg-oat px-[clamp(16px,4vw,64px)] pb-[clamp(60px,9vw,120px)] pt-[clamp(20px,3vw,44px)]">
         <div className="relative mx-auto max-w-[1120px]">
           <motion.div
             className="relative aspect-[4/5] overflow-hidden border border-ink/15 sm:aspect-[16/10] md:aspect-[16/8]"
@@ -106,8 +99,8 @@ export function Hero() {
           >
             <div className="relative border border-ink/25 bg-oat text-ink shadow-[0_2px_0_rgba(38,43,33,0.2),0_24px_48px_-24px_rgba(38,43,33,0.5)]">
               <div className="pinstripe h-3 border-b border-ink/15" aria-hidden />
-              <span aria-hidden className="absolute -left-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-ink/25 bg-rose" />
-              <span aria-hidden className="absolute -right-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-ink/25 bg-rose" />
+              <span aria-hidden className="absolute -left-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-ink/25 bg-oat" />
+              <span aria-hidden className="absolute -right-2.5 top-1/2 h-5 w-5 -translate-y-1/2 rounded-full border border-ink/25 bg-oat" />
               <div className="px-6 pb-5 pt-4 text-center">
                 <div className="flex items-center justify-between">
                   <span className="eyebrow text-[9.5px] text-coral">{t.eyebrow}</span>
@@ -135,7 +128,7 @@ export function Hero() {
             </div>
           </motion.div>
         </div>
-        <Wave fill="#1f251b" />
+        <Wave fill="olive-black" elevated />
       </section>
     </div>
   );
