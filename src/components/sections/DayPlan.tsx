@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { DrawLineFrame } from "@/components/motion/DrawLine";
 import { Parallax } from "@/components/motion/Parallax";
 import { ImageReveal } from "@/components/motion/ImageReveal";
+import { CatWalk } from "@/components/motion/CatWalk";
 import { cn } from "@/lib/cn";
 import { waveOverlapClass, waveOverlapPaddingClass } from "@/components/ui/Wave";
 
@@ -36,7 +37,7 @@ export function DayPlan() {
                 className="col-start-1 flex justify-center pt-1 [grid-row:var(--row-m)] md:col-start-2 md:[grid-row:var(--row-d)]"
                 style={rows}
               >
-                <span className="block h-3 w-3 rounded-full border-2 border-blush bg-coral shadow-[0_0_0_1px_#dd6a4f]" />
+                <span data-cat-stop className="block h-3 w-3 rounded-full border-2 border-blush bg-coral shadow-[0_0_0_1px_#dd6a4f]" />
               </Reveal>
               <Reveal
                 className={cn(
@@ -66,6 +67,7 @@ export function DayPlan() {
             </div>
           );
         })}
+        <CatWalk />
       </DrawLineFrame>
     </Section>
   );

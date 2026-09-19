@@ -18,7 +18,7 @@ type Base = {
 };
 
 const base =
-  "mono-caps inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral disabled:opacity-60";
+  "mono-caps inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 transition-colors duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral disabled:cursor-not-allowed disabled:opacity-40 disabled:saturate-50";
 
 export function Button({ variant = "primary", className, ...rest }: Base & ComponentPropsWithoutRef<"button">) {
   return (

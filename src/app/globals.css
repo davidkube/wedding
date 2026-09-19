@@ -115,9 +115,16 @@ body {
   background-size: 3px 3px, 100% 100%;
 }
 
-/* Pinstripe strip (W14): olive hairlines on oat. */
+/* Wine ground with a soft centre light and darker edges so the flat red has some depth. */
+@utility wine-depth {
+  background-color: var(--color-wine);
+  background-image:
+    radial-gradient(ellipse 110% 80% at 50% 35%, rgba(255, 235, 225, 0.07), transparent 60%),
+    radial-gradient(ellipse 140% 120% at 50% 50%, transparent 50%, rgba(40, 6, 6, 0.42) 100%);
+}
+/* Pinstripe strip (W14): cream hairlines on solid olive. */
 @utility pinstripe {
-  background: repeating-linear-gradient(90deg, #cfd5b8 0 1.5px, #f3eee4 1.5px 8px);
+  background: repeating-linear-gradient(90deg, var(--color-oat) 0 1.5px, #a19939 1.5px 8px);
 }
 /* Film sprockets (holiday-album strip) along a horizontal edge. */
 @utility sprockets {

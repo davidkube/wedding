@@ -6,7 +6,6 @@ import { Section } from "@/components/ui/Section";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Drift } from "@/components/motion/Parallax";
-import { Wave } from "@/components/ui/Wave";
 
 const TILT = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.4];
 
@@ -16,7 +15,7 @@ const TILT = [-2.5, 1.8, -1.2, 2.2, -1.8, 1.4];
  */
 export function StillsWall() {
   return (
-    <Section id="stills" ground="olive" className="relative z-10 overflow-hidden pb-[clamp(72px,10vw,140px)]">
+    <Section id="stills" ground="olive" className="relative z-10 overflow-hidden">
       <div aria-hidden className="grain pointer-events-none absolute inset-0" />
       <div className="relative">
         <Reveal className="inline-block border border-dashed border-olive-light/70 px-[18px] py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-olive-light">
@@ -24,7 +23,7 @@ export function StillsWall() {
         </Reveal>
         <Stagger className="mt-[clamp(24px,3vw,44px)] grid grid-cols-2 gap-x-[clamp(14px,2.4vw,32px)] gap-y-[clamp(24px,3vw,40px)] md:grid-cols-3">
           {gallery.stills.map((s, i) => (
-            <Drift key={s.caption} distance={[18, 40, 28][i % 3]}>
+            <Drift key={s.file} distance={[18, 40, 28][i % 3]}>
               <StaggerItem>
                 <motion.figure
                   className="polaroid relative m-0"
@@ -41,13 +40,11 @@ export function StillsWall() {
                     <span className="shrink-0 text-coral">{String(i + 1).padStart(2, "0")}</span>
                   </figcaption>
                 </motion.figure>
-                <div className="mt-2.5 font-serif text-[14px] italic text-oat-dim">{s.caption}</div>
               </StaggerItem>
             </Drift>
           ))}
         </Stagger>
       </div>
-      <Wave fill="wine" elevated flip />
     </Section>
   );
 }

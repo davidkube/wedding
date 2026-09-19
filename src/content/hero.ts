@@ -3,16 +3,12 @@ import { couple, event, venue } from "./site";
 export const hero = {
   /** Each entry is one line of the oversized serif; lines alternate left and right. */
   nameLines: [couple.first, `& ${couple.second}`],
-  /**
-   * The ticket-style invitation card that sits over the hero photo.
-   */
-  ticket: {
-    eyebrow: "You are invited",
-    date: `${event.dateSpelled}, ${new Date(event.start).getFullYear()}`,
-    time: event.timeSpelled,
-    place: venue.place,
-    admit: "admit all · dancing till late",
-  },
+  /** One line under the names: when and where. */
+  meta: `${event.weekday} ${event.dateLong} · ${venue.place}`,
+  ctas: [
+    { label: "RSVP", href: "#rsvp", primary: true },
+    { label: "The day", href: "#day", primary: false },
+  ],
   /**
    * Photo (or, later, a muted home-movie loop) that sits on the dusty-rose
    * band under the names. Set `video` to a path under /public to play a

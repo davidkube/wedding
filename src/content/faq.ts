@@ -15,5 +15,9 @@ export const faq = {
       q: "Can we take photos?",
       a: "Phones away for the ceremony, please. After that, snap away and send us the good ones.",
     },
+    {
+      q: "Can I bring a plus one?",
+      a: "Unfortunately there is a limit on the guests we can invite and cannot accommodate a plus one for everyone. If you are a special case where we have allowed you a plus one, we have listed her/his name or “Plus One” on your RSVP profile.",
+    },
   ],
 } as const;

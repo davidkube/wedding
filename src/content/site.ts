@@ -16,7 +16,7 @@ export const couple = {
 
 export const event = {
   /** ISO date with the venue's timezone offset (South Africa is UTC+2). */
-  start: "2027-01-03T15:00:00+02:00",
+  start: "2027-01-03T15:30:00+02:00",
   end: "2027-01-04T01:00:00+02:00",
   timezone: "Africa/Johannesburg",
   /** Human forms, written once so every section agrees. */
@@ -27,7 +27,7 @@ export const event = {
   /** Poster numerals for the save-the-date band. */
   dateNumerals: "03.01.27",
   weekday: "Sunday",
-  timeSpelled: "three o'clock",
+  timeSpelled: "half past three",
   rsvpBy: "1 November 2026",
   rsvpByShort: "1 Nov",
 } as const;
@@ -57,7 +57,7 @@ export const contact = {
  *
  * Formspree example: "https://formspree.io/f/abcdwxyz"
  */
-export const rsvpEndpoint = "";
+export const rsvpEndpoint = "https://script.google.com/macros/s/AKfycby8Zx_L0vcf0zLHDUpLAqxgwoiQON1iivIkzxun2bJsfawG4qUMlNnptbHg_PlajzwL/exec";
 
 export const siteMeta = {
   title: `${couple.names} · ${event.dateLong} · ${venue.place}`,

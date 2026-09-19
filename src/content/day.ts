@@ -12,13 +12,13 @@ export const day = {
   eyebrow: "The day",
   items: [
     {
-      time: "15:00",
+      time: "15:30",
       title: "Ceremony",
       place: "The pond",
       image: { src: "/images/venue-pond.jpg", alt: "Zonnevanger's pond and gazebo from above" },
     },
     {
-      time: "16:00",
+      time: "17:00",
       title: "Drinks",
       place: "The garden",
       image: { src: "/images/venue-garden.jpg", alt: "A garden lounge nook at Zonnevanger", objectPosition: "50% 30%" },
@@ -33,7 +33,7 @@ export const day = {
       time: "21:00",
       title: "Dancing",
       place: "Until late",
-      placeholder: "photo · dancing",
+      image: { src: "/images/dancing-lights.jpg", alt: "String lights glowing at dusk" },
     },
-  ] satisfies DayItem[],
+  ] as readonly DayItem[],
 } as const;

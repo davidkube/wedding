@@ -2,7 +2,7 @@ import { travel } from "@/content";
 import { Section } from "@/components/ui/Section";
 import { Eyebrow, Title } from "@/components/ui/Type";
 import { Photo } from "@/components/ui/Photo";
-import { LinkButton } from "@/components/ui/Button";
+import { RouteMap } from "@/components/RouteMap";
 import { Reveal } from "@/components/motion/Reveal";
 import { Drift, Parallax } from "@/components/motion/Parallax";
 import { ImageReveal } from "@/components/motion/ImageReveal";
@@ -11,22 +11,24 @@ import { StayCard } from "./StayCard";
 
 export function Travel() {
   return (
-    <Section id="travel" ground="wine" className="relative overflow-hidden">
+    <Section id="travel" ground="wine" className="relative z-0 overflow-hidden">
+      <div aria-hidden className="grain pointer-events-none absolute inset-0 -z-10" />
       <Ghost letter="D" className="-right-[0.12em] top-[4%]" distance={120} />
       <div className="relative">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(20px,3vw,48px)]">
-          <Reveal>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(20px,3vw,48px)]">
+          {/* The map column sets the row height; the photo grows to fill what the heading leaves. */}
+          <Reveal className="flex flex-col">
             <Eyebrow sectionId="travel">{travel.eyebrow}</Eyebrow>
             <Title className="text-blush">{travel.title}</Title>
-            <LinkButton variant="text" href={travel.mapCta.href} target="_blank" rel="noreferrer" className="mt-4">
-              {travel.mapCta.label} ↗
-            </LinkButton>
+            <ImageReveal from="left" delay={0.15} className="mt-7 flex-1 md:min-h-[240px]">
+              <Parallax className="aspect-[3/2] md:aspect-auto md:h-full" strength={0.14}>
+                <Photo image={travel.image} sizes="(max-width: 768px) 100vw, 560px" />
+              </Parallax>
+            </ImageReveal>
           </Reveal>
-          <ImageReveal from="right" delay={0.15}>
-            <Parallax className="aspect-[3/2]" strength={0.14}>
-              <Photo image={travel.image} sizes="(max-width: 768px) 100vw, 560px" />
-            </Parallax>
-          </ImageReveal>
+          <Reveal delay={1}>
+            <RouteMap className="w-full" />
+          </Reveal>
         </div>
 
         <div id="stays" className="mt-[clamp(32px,5vw,72px)] grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] items-start gap-[clamp(16px,2.4vw,32px)] scroll-mt-20">

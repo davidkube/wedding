@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/cn";
 
 const grounds = {
-  wine: "bg-wine text-oat",
+  wine: "wine-depth text-oat",
   oat: "bg-oat text-ink",
   olive: "bg-olive-black text-oat",
   blush: "bg-blush",

@@ -4,12 +4,11 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { dressCode, faq } from "@/content";
 import { Section } from "@/components/ui/Section";
-import { Eyebrow, Title } from "@/components/ui/Type";
+import { Title } from "@/components/ui/Type";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { cn } from "@/lib/cn";
 import { ImageReveal } from "@/components/motion/ImageReveal";
-import { waveOverlapClass, waveOverlapPaddingClass } from "@/components/ui/Wave";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -44,10 +43,10 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(1);
 
   return (
-    <Section id="faq" ground="wine" className={cn("relative z-0", waveOverlapClass, waveOverlapPaddingClass)}>
+    <Section id="faq" ground="wine" className="relative z-0 overflow-hidden">
+      <div aria-hidden className="grain pointer-events-none absolute inset-0 -z-10" />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(24px,4vw,64px)]">
         <Reveal className="relative">
-          <Eyebrow tone="coral" sectionId="faq">{faq.eyebrow}</Eyebrow>
           <Title className="text-blush">{faq.title}</Title>
           <motion.div
             className="absolute right-0 -top-2 rounded-full bg-oat px-4 py-2.5 font-serif text-[18px] italic text-coral shadow-[0_2px_0_rgba(38,43,33,0.25)]"
@@ -69,9 +68,6 @@ export function Faq() {
       </div>
 
       <div className="mt-[clamp(40px,6vw,80px)]">
-        <Reveal>
-          <Eyebrow tone="coral" sectionId="faq">{dressCode.eyebrow}</Eyebrow>
-        </Reveal>
         <Stagger className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
           {dressCode.cards.map((c) => (
             <StaggerItem key={c.title}>

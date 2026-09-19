@@ -7,7 +7,6 @@ import { Eyebrow } from "@/components/ui/Type";
 import { Photo } from "@/components/ui/Photo";
 import { Reveal } from "@/components/motion/Reveal";
 import { Drift } from "@/components/motion/Parallax";
-import { Ghost } from "@/components/motion/Ghost";
 import { Road } from "@/components/motion/Road";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -15,7 +14,6 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function Story() {
   return (
     <Section id="story" ground="oat" className="relative overflow-hidden">
-      <Ghost letter="P" className="-left-[0.1em] top-[12%]" />
       <div className="relative">
         <Reveal className="flex items-baseline justify-between gap-4 border-b border-ink pb-2.5">
           <span className="font-serif text-[clamp(32px,4vw,56px)] leading-none text-olive">{story.startYear}</span>

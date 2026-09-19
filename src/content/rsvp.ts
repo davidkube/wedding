@@ -7,6 +7,7 @@ export const rsvp = {
     "We would love to have you with us in Paarl. Please reply for everyone on your invitation, and tell us anything the kitchen should know.",
   giftNote:
     "Your being there is the only gift we need. If you would still like to give something, a contribution towards our honeymoon would mean the world.",
+  image: { src: "/images/menu-smile.jpg", alt: "Peeking over a smiling leather-bound menu" },
   form: {
     guest: {
       label: "Your name",

@@ -14,28 +14,32 @@ export type StayCard = {
 export const travel = {
   eyebrow: "Travel & stay",
   title: "Getting to Paarl",
-  image: { src: "/images/laugh.jpg", alt: "The two of them laughing at a bar" },
+  image: { src: "/images/stills/cafe_table.jpg", alt: "Sitting close at an outdoor café table among olive branches" },
   mapCta: { label: "Open in Google Maps", href: venue.mapUrl },
+  /** Drive from the city, as drawn on the illustrated route map. */
+  route: { from: "Cape Town", duration: "37 min", distance: "56 km" },
   stays: [
     {
-      name: "Zonnevanger Cottages",
-      href: "https://example.com/zonnevanger-cottages",
-      meta: "on the farm · from R1 800 / night",
-      placeholder: "stay photo · cottages",
-      tone: "rose",
+      name: "Olyfhoek Farm",
+      href: "https://www.olyfhoek.co.za/",
+      meta: "1-2 min · from R950 / night",
+      image: {
+        src: "/images/olyhoek-farm.webp",
+        alt: "Aerial view of Olyhoek Farm's homestead, pool, and vineyards",
+        objectPosition: "57% 50%",
+      },
     },
     {
-      name: "Grande Roche",
-      href: "https://example.com/grande-roche",
-      meta: "8 min · from R3 200 / night",
-      image: { src: "/images/window.jpg", alt: "A window table under pendant lamps" },
+      name: "Aan de Paarlberg Guest House",
+      href: "https://www.lekkeslaap.co.za/accommodation/aan-de-paarlberg",
+      meta: "10 min · from R800 / night",
+      image: { src: "/images/aan-de-paarlberg.webp", alt: "The guest house's pool and garden with palm trees" },
     },
     {
-      name: "Paarl guesthouses",
-      href: "https://example.com/paarl-guesthouses",
-      meta: "10 min · from R950 / night",
-      placeholder: "stay photo · town",
-      tone: "olive",
+      name: "Olive Tree Boutique Hotel",
+      href: "https://www.olivetreeboutiquehotel.co.za/",
+      meta: "8 min · from R750 / night",
+      image: { src: "/images/olive-tree-boutique.webp", alt: "Poolside breakfast tray with towels in a courtyard room" },
     },
   ] satisfies StayCard[],
 } as const;

@@ -12,3 +12,4 @@ export * from "./gallery";
 export * from "./faq";
 export * from "./dressCode";
 export * from "./footer";
+export * from "./gate";
