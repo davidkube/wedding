@@ -32,8 +32,9 @@ export function Rsvp() {
   const coming = attending === "yes";
   const named = party.filter((g) => g.name.trim());
   const mealLabel = (value: string) => f.meal.options.find((o) => o.value === value)?.label ?? "";
-  // Everyone named needs a meal once they're coming; a "no" only needs the first name.
-  const ready = !!party[0].name.trim() && !!attending && (!coming || named.every((g) => g.meal));
+  // Every row needs a name (remove the row otherwise) and, once they're coming, a meal —
+  // so nobody who was added gets dropped silently.
+  const ready = party.every((g) => g.name.trim()) && !!attending && (!coming || party.every((g) => g.meal));
 
   function updateGuest(i: number, patch: Partial<Guest>) {
     setParty((gs) => gs.map((g, gi) => (gi === i ? { ...g, ...patch } : g)));
@@ -45,27 +46,29 @@ export function Rsvp() {
     setParty((gs) => gs.filter((_, gi) => gi !== i));
   }
 
-  const payload = () => {
-    const line = (g: Guest, value: string) => `${g.name.trim()} – ${value}`;
-    return {
-      guests: named.map((g) => g.name.trim()).join(", "),
+  // One reply per guest, so each lands as its own row in the sheet.
+  const replies = () =>
+    named.map((g) => ({
+      guests: g.name.trim(),
       attending: f.attending.options.find((o) => o.value === attending)?.label ?? "",
-      meal: coming ? named.map((g) => line(g, mealLabel(g.meal))).join(", ") : "",
-      dietary: coming ? named.filter((g) => g.dietary.trim()).map((g) => line(g, g.dietary.trim())).join("; ") : "",
-      party: named.map((g) => ({ name: g.name.trim(), meal: coming ? mealLabel(g.meal) : "", dietary: coming ? g.dietary.trim() : "" })),
-    };
-  };
+      meal: coming ? mealLabel(g.meal) : "",
+      dietary: coming ? g.dietary.trim() : "",
+    }));
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!ready) return;
-    const data = payload();
+    const rows = replies();
 
     if (!rsvpEndpoint) {
-      const body = Object.entries(data)
-        .filter((entry): entry is [string, string] => typeof entry[1] === "string" && entry[1] !== "")
-        .map(([k, v]) => `${k}: ${v}`)
-        .join("\n");
+      const body = rows
+        .map((r) =>
+          Object.entries(r)
+            .filter(([, v]) => v)
+            .map(([k, v]) => `${k}: ${v}`)
+            .join("\n"),
+        )
+        .join("\n\n");
       window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(f.mailSubject)}&body=${encodeURIComponent(body)}`;
       setStatus("sent");
       return;
@@ -76,12 +79,12 @@ export function Rsvp() {
       // Apps Script web apps only accept cross-origin POSTs as "simple" requests
       // (text/plain, no preflight); form services like Formspree want JSON headers.
       const isAppsScript = /script\.google\.com/.test(rsvpEndpoint);
-      const res = await fetch(rsvpEndpoint, {
-        method: "POST",
-        headers: isAppsScript ? { "Content-Type": "text/plain;charset=utf-8" } : { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(data),
-      });
-      setStatus(res.ok ? "sent" : "error");
+      const headers: Record<string, string> = isAppsScript
+        ? { "Content-Type": "text/plain;charset=utf-8" }
+        : { "Content-Type": "application/json", Accept: "application/json" };
+      // In parallel: Apps Script takes a few seconds per call, and row order in the sheet doesn't matter.
+      const results = await Promise.all(rows.map((row) => fetch(rsvpEndpoint, { method: "POST", headers, body: JSON.stringify(row) })));
+      setStatus(results.every((res) => res.ok) ? "sent" : "error");
     } catch {
       setStatus("error");
     }
@@ -155,7 +158,7 @@ export function Rsvp() {
                               value={guest.name}
                               onChange={(e) => updateGuest(i, { name: e.target.value })}
                               placeholder={f.guest.placeholder}
-                              required={i === 0}
+                              required
                             />
                             {party.length > 1 && (
                               <button
