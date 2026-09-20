@@ -1,8 +1,9 @@
 export const dressCode = {
-  eyebrow: "Dress code · garden formal",
+  eyebrow: "Dress code · garden formal · olive, sage, tan, brown",
+  avoid: "Please avoid wearing the following colours: reds, pinks, oranges and light neutrals such as beige",
   cards: [
-    { title: "Ladies", placeholder: "painting or film still · ladies", tone: "rose" as const },
-    { title: "Gentlemen", placeholder: "painting or film still · gentlemen", tone: "olive" as const },
+    { title: "Ladies", image: { src: "/images/dress/ladies.webp", alt: "Garden-formal looks for the ladies: olive, lime and chocolate dresses and separates" } },
+    { title: "Gentlemen", image: { src: "/images/dress/gents.webp", alt: "Garden-formal looks for the gentlemen: olive suits, linen shirts and tan trousers" } },
   ] as ReadonlyArray<{
     title: string;
     image?: { src: string; alt: string };

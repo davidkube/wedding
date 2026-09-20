@@ -17,7 +17,7 @@ export const faq = {
     },
     {
       q: "Can I bring a plus one?",
-      a: "Unfortunately there is a limit on the guests we can invite and cannot accommodate a plus one for everyone. If you are a special case where we have allowed you a plus one, we have listed her/his name or “Plus One” on your RSVP profile.",
+      a: "Unfortunately there is a limit on the guests we can invite and cannot accommodate a plus one for everyone.",
     },
   ],
 } as const;
