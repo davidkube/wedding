@@ -12,7 +12,7 @@ export const day = {
   eyebrow: "The day",
   items: [
     {
-      time: "15:30",
+      time: "15:30 (arrive by 15:00)",
       title: "Ceremony",
       place: "The pond",
       image: { src: "/images/venue-pond.jpg", alt: "Zonnevanger's pond and gazebo from above" },

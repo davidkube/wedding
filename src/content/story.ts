@@ -9,12 +9,12 @@ export const story = {
     {
       when: "2018",
       what: [
-        { text: "running", strike: true },
-        { text: " walking in Tokai Forest, a kiss on the beach in Muizenberg" },
+        { text: "Running", strike: true },
+        { text: " Walking in Tokai Forest, a kiss on the beach in Muizenberg" },
       ] satisfies ChapterPart[],
     },
     { when: "2021–22", what: "Joburg, and Lighty the black cat" },
-    { when: "2025", what: "a boat ride, down on one knee, and a yes" },
+    { when: "2025", what: "A boat ride, down on one knee, and a yes" },
     { when: "2027", what: "Zonnevanger, Paarl, with our loved ones" },
   ],
   photos: [

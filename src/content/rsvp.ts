@@ -4,7 +4,7 @@ export const rsvp = {
   eyebrow: "Kindly reply",
   titleLines: ["Will you", "join us?"],
   intro:
-    "We would love to have you with us in Paarl. Please reply for everyone on your invitation, and tell us anything the kitchen should know.",
+    "We would love to have you with us in Paarl. Please reply for everyone on your invitation, and tell us anything the kitchen should know. Kindly reply by 01/11/26",
   giftNote:
     "Your being there is the only gift we need. If you would like to give something, a contribution towards our honeymoon would mean the world.",
   image: { src: "/images/menu-smile.jpg", alt: "Peeking over a smiling leather-bound menu" },
