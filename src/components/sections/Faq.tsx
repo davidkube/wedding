@@ -79,32 +79,6 @@ export function Faq() {
               <div className="mt-2.5 font-serif text-[22px]">{c.title}</div>
             </StaggerItem>
           ))}
-          <StaggerItem className="grid grid-cols-3 content-start gap-2">
-            {dressCode.swatches.map((s) => {
-              const [r, g, b] = [1, 3, 5].map((i) => parseInt(s.hex.slice(i, i + 2), 16));
-              return (
-                <div key={s.hex}>
-                  <motion.div
-                    className="h-[180px] origin-bottom"
-                    style={{ background: s.hex }}
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.9, ease: EASE }}
-                  />
-                  <div className="mt-2 font-mono text-[10.5px] leading-[1.5]">
-                    <b className="font-medium">{s.name}</b>
-                    <br />
-                    {s.hex}
-                    <br />
-                    <span className="text-oat-dim">
-                      {r} {g} {b}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </StaggerItem>
         </Stagger>
       </div>
     </Section>

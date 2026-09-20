@@ -13,40 +13,57 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Ghost } from "@/components/motion/Ghost";
 
 type Status = "idle" | "sending" | "sent" | "error";
+type Guest = { name: string; meal: string; dietary: string };
+
+const blank: Guest = { name: "", meal: "", dietary: "" };
+
+const collapse = {
+  initial: { opacity: 0, height: 0 },
+  animate: { opacity: 1, height: "auto" },
+  exit: { opacity: 0, height: 0 },
+} as const;
 
 export function Rsvp() {
   const f = rsvp.form;
-  const [guests, setGuests] = useState<string[]>([""]);
   const [attending, setAttending] = useState<string>("");
-  const [meal, setMeal] = useState<string>("");
-  const [dietary, setDietary] = useState("");
+  const [party, setParty] = useState<Guest[]>([blank]);
   const [status, setStatus] = useState<Status>("idle");
 
-  function updateGuest(i: number, value: string) {
-    setGuests((gs) => gs.map((g, gi) => (gi === i ? value : g)));
+  const coming = attending === "yes";
+  const named = party.filter((g) => g.name.trim());
+  const mealLabel = (value: string) => f.meal.options.find((o) => o.value === value)?.label ?? "";
+  // Everyone named needs a meal once they're coming; a "no" only needs the first name.
+  const ready = !!party[0].name.trim() && !!attending && (!coming || named.every((g) => g.meal));
+
+  function updateGuest(i: number, patch: Partial<Guest>) {
+    setParty((gs) => gs.map((g, gi) => (gi === i ? { ...g, ...patch } : g)));
   }
   function addGuest() {
-    setGuests((gs) => [...gs, ""]);
+    setParty((gs) => [...gs, blank]);
   }
   function removeGuest(i: number) {
-    setGuests((gs) => gs.filter((_, gi) => gi !== i));
+    setParty((gs) => gs.filter((_, gi) => gi !== i));
   }
 
-  const payload = () => ({
-    guests: guests.filter(Boolean).join(", "),
-    attending: f.attending.options.find((o) => o.value === attending)?.label ?? "",
-    meal: f.meal.options.find((o) => o.value === meal)?.label ?? "",
-    dietary,
-  });
+  const payload = () => {
+    const line = (g: Guest, value: string) => `${g.name.trim()} – ${value}`;
+    return {
+      guests: named.map((g) => g.name.trim()).join(", "),
+      attending: f.attending.options.find((o) => o.value === attending)?.label ?? "",
+      meal: coming ? named.map((g) => line(g, mealLabel(g.meal))).join(", ") : "",
+      dietary: coming ? named.filter((g) => g.dietary.trim()).map((g) => line(g, g.dietary.trim())).join("; ") : "",
+      party: named.map((g) => ({ name: g.name.trim(), meal: coming ? mealLabel(g.meal) : "", dietary: coming ? g.dietary.trim() : "" })),
+    };
+  };
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!guests[0] || !attending) return;
+    if (!ready) return;
     const data = payload();
 
     if (!rsvpEndpoint) {
       const body = Object.entries(data)
-        .filter(([, v]) => v)
+        .filter((entry): entry is [string, string] => typeof entry[1] === "string" && entry[1] !== "")
         .map(([k, v]) => `${k}: ${v}`)
         .join("\n");
       window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(f.mailSubject)}&body=${encodeURIComponent(body)}`;
@@ -96,7 +113,7 @@ export function Rsvp() {
 
         <Reveal
           delay={1}
-          className="relative flex flex-col border border-ink/25 bg-oat bg-cover bg-center p-[clamp(20px,2.4vw,32px)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_2px_0_rgba(38,43,33,0.18),0_28px_48px_-24px_rgba(0,0,0,0.65)]"
+          className="@container relative flex flex-col border border-ink/25 bg-oat bg-cover bg-center p-[clamp(20px,2.4vw,32px)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_2px_0_rgba(38,43,33,0.18),0_28px_48px_-24px_rgba(0,0,0,0.65)]"
           style={{ backgroundImage: "url(/images/paper-texture.jpg)" }}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -113,37 +130,6 @@ export function Rsvp() {
               </motion.div>
             ) : (
               <motion.form key="form" onSubmit={onSubmit} className="flex flex-1 flex-col gap-4" exit={{ opacity: 0 }}>
-                <div className="grid gap-2.5">
-                  {guests.map((guest, i) => (
-                    <div key={i}>
-                      <Label htmlFor={`rsvp-guest-${i}`}>{i === 0 ? f.guest.label : f.guest.labelMore}</Label>
-                      <div className="flex gap-2">
-                        <Input
-                          id={`rsvp-guest-${i}`}
-                          name={`guest-${i}`}
-                          value={guest}
-                          onChange={(e) => updateGuest(i, e.target.value)}
-                          placeholder={f.guest.placeholder}
-                          required={i === 0}
-                        />
-                        {guests.length > 1 && (
-                          <button
-                            type="button"
-                            onClick={() => removeGuest(i)}
-                            aria-label={f.guest.remove}
-                            className="shrink-0 border border-ink/30 px-3 font-mono text-[13px] text-ink hover:bg-blush"
-                          >
-                            −
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                  <button type="button" onClick={addGuest} className="justify-self-start font-mono text-[12px] text-ink underline-offset-4 hover:underline">
-                    {f.guest.add}
-                  </button>
-                </div>
-
                 <fieldset>
                   <Label as="legend">{f.attending.label}</Label>
                   <div className="flex flex-wrap gap-2">
@@ -155,38 +141,79 @@ export function Rsvp() {
                   </div>
                 </fieldset>
 
-                <AnimatePresence initial={false}>
-                  {attending !== "no" && (
-                    <motion.div
-                      key="details"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="-m-0.5 flex flex-col gap-4 overflow-hidden p-0.5"
-                    >
-                      <fieldset>
-                        <Label as="legend">{f.meal.label}</Label>
-                        <div className="flex flex-wrap gap-2">
-                          {f.meal.options.map((o) => (
-                            <Chip key={o.value} selected={meal === o.value} onClick={() => setMeal(o.value)}>
-                              {o.label}
-                            </Chip>
-                          ))}
+                <div className="grid gap-3">
+                  {party.map((guest, i) => {
+                    const first = guest.name.trim().split(/\s+/)[0];
+                    return (
+                      <div key={i} className="grid gap-2.5">
+                        <div>
+                          <Label htmlFor={`rsvp-guest-${i}`}>{i === 0 ? f.guest.label : f.guest.labelMore}</Label>
+                          <div className="flex gap-2">
+                            <Input
+                              id={`rsvp-guest-${i}`}
+                              name={`guest-${i}`}
+                              value={guest.name}
+                              onChange={(e) => updateGuest(i, { name: e.target.value })}
+                              placeholder={f.guest.placeholder}
+                              required={i === 0}
+                            />
+                            {party.length > 1 && (
+                              <button
+                                type="button"
+                                onClick={() => removeGuest(i)}
+                                aria-label={f.guest.remove}
+                                className="shrink-0 border border-ink/30 px-3 font-mono text-[13px] text-ink shadow-[inset_0_2px_3px_rgba(38,43,33,0.16)] hover:bg-blush"
+                              >
+                                −
+                              </button>
+                            )}
+                          </div>
                         </div>
-                      </fieldset>
-                      <div>
-                        <Label htmlFor="rsvp-dietary">{f.dietary.label}</Label>
-                        <Textarea id="rsvp-dietary" name="dietary" value={dietary} onChange={(e) => setDietary(e.target.value)} placeholder={f.dietary.placeholder} />
+
+                        {/* Meal and note per guest, side by side, only once they've said yes. */}
+                        <AnimatePresence initial={false}>
+                          {coming && (
+                            <motion.div key="details" {...collapse} className="-m-0.5 overflow-hidden p-0.5">
+                              {/* Side by side only when the card itself is wide enough (container query, not viewport). */}
+                              <div className="grid gap-3 @sm:grid-cols-2">
+                                <fieldset className="min-w-0">
+                                  <Label as="legend">{first ? `${f.meal.label} · ${first}` : f.meal.label}</Label>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {f.meal.options.map((o) => (
+                                      <Chip key={o.value} compact selected={guest.meal === o.value} onClick={() => updateGuest(i, { meal: o.value })} className="justify-center">
+                                        {o.label}
+                                      </Chip>
+                                    ))}
+                                  </div>
+                                </fieldset>
+                                <div className="min-w-0">
+                                  <Label htmlFor={`rsvp-dietary-${i}`}>{f.dietary.label}</Label>
+                                  <Textarea
+                                    id={`rsvp-dietary-${i}`}
+                                    name={`dietary-${i}`}
+                                    value={guest.dietary}
+                                    onChange={(e) => updateGuest(i, { dietary: e.target.value })}
+                                    placeholder={f.dietary.placeholder}
+                                    className="min-h-[88px]"
+                                  />
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    );
+                  })}
+                  <button type="button" onClick={addGuest} className="justify-self-start font-mono text-[12px] text-ink underline-offset-4 hover:underline">
+                    {f.guest.add}
+                  </button>
+                </div>
 
                 <div className="mt-auto flex justify-end pt-2">
                   <Button
                     type="submit"
                     className="shadow-[0_3px_0_rgba(38,43,33,0.35),0_10px_18px_-10px_rgba(38,43,33,0.6)] transition-[transform,box-shadow,background-color] active:translate-y-[2px] active:bg-coral active:shadow-[0_1px_0_rgba(38,43,33,0.35),inset_0_2px_4px_rgba(0,0,0,0.25)] disabled:shadow-none"
-                    disabled={status === "sending" || !guests[0] || !attending}
+                    disabled={status === "sending" || !ready}
                   >
                     {status === "sending" ? f.sending : f.submit}
                   </Button>

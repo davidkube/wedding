@@ -1,5 +1,3 @@
-import { palette } from "./theme";
-
 export const dressCode = {
   eyebrow: "Dress code · garden formal",
   cards: [
@@ -11,6 +9,4 @@ export const dressCode = {
     placeholder?: string;
     tone?: "rose" | "olive";
   }>,
-  /** Named swatches under the cards. */
-  swatches: [palette.rose, palette.olive, palette.mustard],
 } as const;

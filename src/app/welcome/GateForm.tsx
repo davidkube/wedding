@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { couple, event, gate, venue } from "@/content";
 import { Button } from "@/components/ui/Button";
 import { Input, Label } from "@/components/ui/Field";
@@ -13,6 +13,11 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function GateForm() {
   const [state, action, pending] = useActionState<GateState, FormData>(unlock, { attempts: 0 });
   const year = new Date(event.start).getFullYear();
+  const busy = pending || !!state.ok;
+
+  useEffect(() => {
+    if (state.ok) window.location.assign("/");
+  }, [state.ok]);
 
   return (
     <motion.form
@@ -65,10 +70,10 @@ export function GateForm() {
 
         <Button
           type="submit"
-          disabled={pending}
+          disabled={busy}
           className="mt-5 w-full shadow-[0_3px_0_rgba(38,43,33,0.35),0_10px_18px_-10px_rgba(38,43,33,0.6)] transition-[transform,box-shadow,background-color] active:translate-y-[2px] active:shadow-[0_1px_0_rgba(38,43,33,0.35),inset_0_2px_4px_rgba(0,0,0,0.25)] disabled:shadow-none"
         >
-          {pending ? gate.pending : gate.submit}
+          {busy ? gate.pending : gate.submit}
         </Button>
         <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#a19939]">{gate.footer}</p>
       </div>

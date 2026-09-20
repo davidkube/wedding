@@ -28,8 +28,9 @@ export const rsvp = {
       label: "Meal",
       options: [
         { value: "lamb", label: "Lamb" },
-        { value: "linefish", label: "Linefish" },
+        { value: "chicken", label: "Chicken" },
         { value: "vegetarian", label: "Vegetarian" },
+        { value: "vegan", label: "Vegan" },
       ],
     },
     dietary: { label: "Dietary note", placeholder: "Allergies, anything we should know" },

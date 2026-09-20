@@ -11,7 +11,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 /**
  * Slim sticky nav: spaced caps and the monogram. Slides away on scroll down,
  * back on scroll up, with a coral progress hairline. On small screens the
- * links live in a full-screen olive menu.
+ * links live in a full-screen wine menu.
  */
 export function Nav() {
   const { scrollY, scrollYProgress } = useScroll();
@@ -87,7 +87,7 @@ export function Nav() {
             id="mobile-menu"
             key="menu"
             data-lenis-prevent
-            className="fixed inset-0 z-40 flex flex-col justify-end bg-olive px-[clamp(16px,4vw,64px)] pb-10 pt-24 text-oat md:hidden"
+            className="wine-depth fixed inset-0 z-40 flex flex-col justify-end px-[clamp(16px,4vw,64px)] pb-10 pt-24 text-oat md:hidden"
             initial={{ clipPath: "circle(0% at calc(100% - 36px) 36px)" }}
             animate={{ clipPath: "circle(150% at calc(100% - 36px) 36px)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 36px) 36px)" }}
@@ -106,7 +106,7 @@ export function Nav() {
                   transition={{ duration: 0.6, ease: EASE, delay: 0.15 + i * 0.06 }}
                 >
                   {l.label}
-                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-olive-pale">{l.number}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-blush/70">{l.number}</span>
                 </motion.a>
               ))}
             </nav>
