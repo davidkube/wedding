@@ -1,5 +1,5 @@
 export const dressCode = {
-  eyebrow: "Dress code · garden formal · olive, sage, tan, brown",
+  eyebrow: "Dress code · garden formal · olive, sage, lime, tan, brown",
   avoid: "Please avoid wearing the following colours: reds, pinks, oranges and light neutrals such as cream",
   cards: [
     {
