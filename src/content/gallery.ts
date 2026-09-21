@@ -7,7 +7,7 @@ export type Still = {
 
 /** The stills wall on olive-black. Numbering is automatic. */
 export const gallery = {
-  label: "Stills · 2019–2026",
+  label: "Stills",
   stills: [
     { file: "kloof_st.jpg", image: { src: "/images/laugh.jpg", alt: "Laughing at the bar on Bree Street" } },
     { file: "amber_glass.jpg", image: { src: "/images/kiss.jpg", alt: "A kiss in front of amber glass" } },

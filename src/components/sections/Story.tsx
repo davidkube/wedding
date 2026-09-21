@@ -44,11 +44,11 @@ export function Story() {
 
           <div className="grid grid-cols-2 gap-4 pt-4 md:gap-6">
             {story.photos.map((p, i) => (
-              <Drift key={i} distance={i === 0 ? 30 : -30} className={i === 1 ? "mt-10" : ""}>
+              <Drift key={i} distance={i % 2 === 0 ? 30 : -30} className={i % 2 === 1 ? "mt-10" : ""}>
                 <Reveal delay={i}>
                   <motion.figure
                     className="polaroid m-0"
-                    initial={{ rotate: i === 0 ? -3 : 2.5 }}
+                    initial={{ rotate: i % 2 === 0 ? -3 : 2.5 }}
                     whileHover={{ rotate: 0, scale: 1.03 }}
                     transition={{ type: "spring", stiffness: 200, damping: 18 }}
                   >

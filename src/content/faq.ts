@@ -19,5 +19,9 @@ export const faq = {
       q: "Can I bring a plus one?",
       a: "Unfortunately there is a limit on the guests we can invite and cannot accommodate a plus one for everyone.",
     },
+    {
+      q: "Are children allowed?",
+      a: "Although we'd love to have all of our friends and family there, due to numbers we can only accommodate children over the age of 11.",
+    },
   ],
 } as const;
