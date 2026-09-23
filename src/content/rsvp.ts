@@ -5,8 +5,27 @@ export const rsvp = {
   titleLines: ["Will you", "join us?"],
   intro:
     "We would love to have you with us in Paarl. Please reply for everyone on your invitation, and tell us anything the kitchen should know. Kindly reply by 01/11/26",
-  giftNote:
-    "Your being there is the only gift we need. If you would like to give something, a contribution towards our honeymoon would mean the world.",
+  gift: {
+    /** Sentence around the tappable link: lead + link + tail. */
+    lead: "Your being there is the only gift we need. If you would like to give something, ",
+    link: "a contribution towards our honeymoon",
+    tail: " would mean the world.",
+    /** Heading over the revealed bank details. */
+    title: "Honeymoon fund",
+    /** TODO: replace with the real account before this goes live. */
+    details: [
+      { label: "Bank", value: "Bank name" },
+      { label: "Account name", value: "Account holder" },
+      { label: "Account number", value: "0000000000" },
+      { label: "Branch code", value: "000000" },
+      { label: "Account type", value: "Cheque" },
+    ],
+    reference: { label: "Reference", value: "PD Honeymoon (Your Name)" },
+    referenceNote: "Please put your own name in the reference so we know who to thank.",
+    copy: "Copy",
+    copied: "Copied",
+    close: "Hide details",
+  },
   image: { src: "/images/menu-smile.jpg", alt: "Peeking over a smiling leather-bound menu" },
   form: {
     guest: {

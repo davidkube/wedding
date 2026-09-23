@@ -23,6 +23,82 @@ const collapse = {
   exit: { opacity: 0, height: 0 },
 } as const;
 
+/** The honeymoon-fund sentence: the link in the middle toggles the bank details underneath. */
+function Gift() {
+  const g = rsvp.gift;
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
+  const rows = [...g.details, g.reference];
+
+  async function copy(label: string, value: string) {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(label);
+      window.setTimeout(() => setCopied((c) => (c === label ? null : c)), 1600);
+    } catch {
+      /* Clipboard blocked; the text is still selectable. */
+    }
+  }
+
+  return (
+    <div className="mt-3.5 max-w-[44ch]">
+      <p className="font-serif text-[15px] italic text-oat-dim">
+        {g.lead}
+        {/* An anchor, not a button: buttons are inline-block and refuse to wrap mid-sentence. */}
+        <a
+          href="#honeymoon-fund"
+          role="button"
+          aria-expanded={open}
+          aria-controls="honeymoon-fund"
+          onClick={(e) => {
+            e.preventDefault();
+            setOpen((o) => !o);
+          }}
+          className="cursor-pointer not-italic text-blush underline decoration-blush/50 underline-offset-4 hover:decoration-blush"
+        >
+          {g.link}
+        </a>
+        {g.tail}
+      </p>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div key="fund" id="honeymoon-fund" {...collapse} className="overflow-hidden">
+            <div className="mt-4 border border-oat/30 bg-ink/15 p-4">
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-oat-dim">{g.title}</div>
+              <dl className="mt-3 grid gap-2">
+                {rows.map((r) => (
+                  <div key={r.label} className="flex items-baseline justify-between gap-3">
+                    <dt className="shrink-0 font-mono text-[12px] text-oat-dim">{r.label}</dt>
+                    <dd className="flex min-w-0 items-baseline gap-2 text-right">
+                      <span className="break-words font-mono text-[13px] text-oat">{r.value}</span>
+                      <button
+                        type="button"
+                        onClick={() => copy(r.label, r.value)}
+                        className="shrink-0 font-mono text-[11px] text-blush underline-offset-4 hover:underline"
+                        aria-label={`${g.copy} ${r.label}`}
+                      >
+                        {copied === r.label ? g.copied : g.copy}
+                      </button>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="mt-3 font-serif text-[14px] italic text-oat-dim">{g.referenceNote}</p>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="mt-3 font-mono text-[12px] text-oat underline-offset-4 hover:underline"
+              >
+                {g.close}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function Rsvp() {
   const f = rsvp.form;
   const [attending, setAttending] = useState<string>("");
@@ -105,7 +181,7 @@ export function Rsvp() {
             ))}
           </h2>
           <p className="mt-[18px] max-w-[44ch]">{rsvp.intro}</p>
-          <p className="mt-3.5 max-w-[44ch] font-serif text-[15px] italic text-oat-dim">{rsvp.giftNote}</p>
+          <Gift />
           {/* Pushed to the column's foot so it lines up with the bottom of the reply card. */}
           <div className="mt-auto w-full max-w-[480px] pt-6">
             <div className="relative aspect-[3/2] overflow-hidden">
