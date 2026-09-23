@@ -13,7 +13,7 @@ export const rsvp = {
       label: "Your name",
       /** Label for the second and later fields. */
       labelMore: "Guest name",
-      placeholder: "Peighton's cousin Anna",
+      placeholder: "Your Name",
       add: "+ Add a guest",
       remove: "Remove",
     },
