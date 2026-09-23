@@ -23,6 +23,16 @@ const collapse = {
   exit: { opacity: 0, height: 0 },
 } as const;
 
+/** Two overlapping squares: the usual "copy" glyph. */
+function CopyIcon() {
+  return (
+    <svg aria-hidden width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round">
+      <rect x="5.5" y="5.5" width="8" height="8" />
+      <path d="M10.5 5.5v-3h-8v8h3" />
+    </svg>
+  );
+}
+
 /** The honeymoon-fund sentence: the link in the middle toggles the bank details underneath. */
 function Gift() {
   const g = rsvp.gift;
@@ -31,13 +41,29 @@ function Gift() {
   const rows = [...g.details, g.reference];
 
   async function copy(label: string, value: string) {
+    let ok = false;
     try {
       await navigator.clipboard.writeText(value);
-      setCopied(label);
-      window.setTimeout(() => setCopied((c) => (c === label ? null : c)), 1600);
+      ok = true;
     } catch {
-      /* Clipboard blocked; the text is still selectable. */
+      // Older browsers or a blocked Clipboard API: select the text in a throwaway field and copy that.
+      const ta = document.createElement("textarea");
+      ta.value = value;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        ok = document.execCommand("copy");
+      } catch {
+        ok = false;
+      }
+      ta.remove();
     }
+    if (!ok) return;
+    setCopied(label);
+    window.setTimeout(() => setCopied((c) => (c === label ? null : c)), 1600);
   }
 
   return (
@@ -69,16 +95,34 @@ function Gift() {
                 {rows.map((r) => (
                   <div key={r.label} className="flex items-baseline justify-between gap-3">
                     <dt className="shrink-0 font-mono text-[12px] text-oat-dim">{r.label}</dt>
-                    <dd className="flex min-w-0 items-baseline gap-2 text-right">
+                    <dd className="flex min-w-0 items-center gap-2 text-right">
                       <span className="break-words font-mono text-[13px] text-oat">{r.value}</span>
-                      <button
-                        type="button"
-                        onClick={() => copy(r.label, r.value)}
-                        className="shrink-0 font-mono text-[11px] text-blush underline-offset-4 hover:underline"
-                        aria-label={`${g.copy} ${r.label}`}
-                      >
-                        {copied === r.label ? g.copied : g.copy}
-                      </button>
+                      <span className="relative shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => copy(r.label, r.value)}
+                          className="block p-0.5 text-blush/80 hover:text-blush"
+                          aria-label={`${g.copy} ${r.label}`}
+                        >
+                          <CopyIcon />
+                        </button>
+                        {/* Floating "Copied!" pill that rises out of the icon and fades. */}
+                        <AnimatePresence>
+                          {copied === r.label && (
+                            <motion.span
+                              key="toast"
+                              role="status"
+                              initial={{ opacity: 0, y: 4 }}
+                              animate={{ opacity: 1, y: -6 }}
+                              exit={{ opacity: 0, y: -14 }}
+                              transition={{ duration: 0.25 }}
+                              className="pointer-events-none absolute bottom-full right-0 whitespace-nowrap bg-blush px-2 py-0.5 font-mono text-[11px] text-ink shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+                            >
+                              {g.copied}
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+                      </span>
                     </dd>
                   </div>
                 ))}

@@ -21,10 +21,14 @@ export function Story() {
           <span className="font-serif text-[clamp(32px,4vw,56px)] leading-none text-olive">{story.endYear}</span>
         </Reveal>
 
-        <div className="mt-[clamp(24px,3vw,40px)] grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(28px,4vw,56px)]">
-          <div>
+        {/*
+          Side by side from md up. Grid items stretch, so both columns are the same height;
+          the photos set it and the road column fills it, spreading its stops along the way.
+        */}
+        <div className="mt-[clamp(24px,3vw,40px)] grid grid-cols-1 gap-[clamp(28px,4vw,56px)] md:grid-cols-2">
+          <div className="md:flex md:flex-col">
             <Reveal className="mb-4 font-serif text-[clamp(22px,2.2vw,28px)] italic text-ink">{story.roadLabel}</Reveal>
-            <Road count={story.chapters.length}>
+            <Road count={story.chapters.length} className="md:flex-1">
               {story.chapters.map((c, i) => (
                 <Reveal key={c.when} delay={i * 0.5} amount={0.6} className="flex min-h-[84px] flex-col justify-center py-3 pl-2">
                   <span className="font-mono text-[12px] text-coral">{c.when}</span>
