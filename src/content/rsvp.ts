@@ -14,7 +14,7 @@ export const rsvp = {
       /** Label for the second and later fields. */
       labelMore: "Guest name",
       placeholder: "Your Name",
-      add: "+ Add a guest",
+      add: "+ Reply for another person on your invitation",
       remove: "Remove",
     },
     attending: {
